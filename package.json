@@ -1,0 +1,11 @@
+{
+  "name": "kamarwebapp",
+  "version": "1.0.0",
+  "description": "A Better Kamar Portal",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "B John",
+  "license": "ISC"
+}
