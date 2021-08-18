@@ -1,0 +1,112 @@
+.main-container{
+    display: grid;
+    width: 60%;
+    margin: auto;
+    margin-top: 10px;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    grid-gap: 15px;
+    justify-content: center;
+}
+
+.card-wrapper{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 25px;
+    margin: 15px;
+}
+
+.search-area{
+    display: flex;
+    justify-self: stretch;
+    text-align: center;
+    /* margin-left: 15px;
+    margin-right: 15px; */
+    margin: 15px;
+    margin-top: 25px;
+}
+
+.subject-search{
+    flex-grow: 1;
+    /* position: static; */
+    padding: 1em;
+    border-radius: 0 2em 2em 0;
+    background: #f3f3f3;
+    border: 0.2em solid #008C5A;
+    border-left: none;
+    outline: none;
+    font-size: 1.05em;
+    transition: all 250ms ease-in-out;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+}
+
+.subject-search-button{
+    padding-left: 3em;
+    /* position: static; */
+    font-size: 1.05em;
+    background: #f3f3f3 url("../img/search-solid-black.svg") center center/50% no-repeat;
+    border-radius: 2em 0 0 2em;
+    border: 0.2em solid #008C5A;
+    border-right: none;
+    transition: all 250ms ease-in-out;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+
+}
+
+.subject-search-button-active{
+    outline: 0;
+    border: 1px solid transparent;
+    border-bottom: 1px solid #008C5A;
+    border-radius: 0;
+    border-right: none;
+
+}
+
+.subject-search-active{
+    padding: 0.8em 0;
+    outline: 0;
+    border: 1px solid transparent;
+    border-bottom: 1px solid #008C5A;
+    border-left: none;
+    border-radius: 0;
+    background-position: 100% center;
+}
+
+
+.subject-search-button:hover{
+    background: #f3f3f3 url("../img/search-solid-white.svg") center center/50% no-repeat;
+}
+
+.subject-search:hover + .subject-search-button { background-color: yellow; }
+
+.card {
+    height: 15em;
+    width: 15em;
+}
+
+.card-text{
+    background-color: #008C5A;
+    color:#FFFFFF;
+    border-bottom-right-radius: 2em;
+    border-bottom-left-radius: 2em;
+}
+
+.card-text h2{
+    font-size: 1.5em;
+    margin-bottom: 0;
+    margin-top: 0;
+    padding-top: 0.4em;    
+    position: relative;
+}
+
+.card-image{
+    /* justify-content: stretch;
+    align-content: stretch; */
+    justify-items: center;
+    align-items: center;
+    margin: 0.5em;
+}

@@ -1,0 +1,122 @@
+
+html, body{
+    height: 100%;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+form {
+    display: grid;
+    width: 100%;
+    position: relative;
+    margin: auto;
+}
+
+input {
+    width: 80%;
+    padding: 3.5%;
+    margin-top: 5%;
+    margin-bottom: 4.5%;
+    border: 0.01em solid lightgray;
+    border-radius: 0.4em;
+    justify-self: center;
+}
+
+.sign-in-wrapper {
+    display:block;
+    width: 60%;
+    height: 0;
+    padding-bottom: 60%;
+    position:absolute;
+    left:20%;
+    top:20%;
+   }
+    
+@media only screen and (orientation: landscape) {
+   .main-container {
+    height: 100%;
+    text-align: center;
+   }
+
+.sign-in-wrapper {
+    display: inline-block;
+    position: relative;
+    height: 60%;
+    width:inherit;
+    left:0;
+    top: 20%;
+    padding-bottom:0;
+   }
+
+img {
+    height: 100%;
+    width: auto;
+   }
+
+.sign-in-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width:100%;
+   }
+
+.clear {
+    clear:both;
+   }
+
+h2, form {
+    float:left;
+    max-width:100%;
+    }
+}
+
+.sign-in-wrapper{
+    background-color:#F3F3F3;
+    border-radius: 2em;
+}
+
+.sign-in-content{
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 1fr 5fr;
+    
+}
+
+.sign-in-content h2{
+    align-self: center;
+    justify-self: center;
+    align-content: start;
+    margin-top: 4%;
+    font-size: 2em;
+}
+
+label {
+    text-align: left;
+    justify-self: left;
+    padding-left: 8%;
+    margin-top: 1%;
+    font-size: 1.2em;
+}
+
+#submit-button{
+    width: 30%;
+    padding: 4%;
+    margin-top: 1%;
+    justify-self: end;
+    border-radius: 2em;
+    text-decoration: none;
+    border: none;
+    justify-self: center;
+    color: #fff;
+    background-color: #008C5A;
+    font-size: 1.3em;
+}
+
+#submit-button:hover{
+    background-color: #84C7AF;
+}

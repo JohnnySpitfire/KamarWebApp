@@ -1,0 +1,71 @@
+.sign-in-form {
+    display: grid;
+    width: 100%;
+    justify-self: center;
+    align-items: center;
+}
+
+.sign-in-input {
+    width: 80%;
+    padding: 2.6%;
+    border: 0.01em solid lightgray;
+    border-radius: 0.4em;
+    justify-self: center;
+
+}
+
+.sign-in-container {
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+   
+.sign-in-wrapper {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 1fr 5fr;
+    position: absolute;
+    width: 30%;
+   }
+
+.clear {
+    clear:both;
+   }
+
+.sign-in-wrapper{
+    background-color:#F3F3F3;
+    border-radius: 2em;
+}
+
+.sign-in-h2{
+    margin-top: 3%;
+    margin-bottom:3%;
+    font-size: 2em;
+    padding: 2%;
+}
+
+.sign-in-label {
+    text-align: left;
+    justify-self: left;
+    padding-left: 8%;
+    font-size: 1.2em;
+}
+
+#submit-button{
+    width: 30%;
+    padding: 2%;
+    justify-self: end;
+    border-radius: 2em;
+    text-decoration: none;
+    border: none;
+    justify-self: center;
+    color: #fff;
+    background-color: #008C5A;
+    font-size: 1.3em;
+}
+
+#submit-button:hover{
+    background-color: #84C7AF;
+}

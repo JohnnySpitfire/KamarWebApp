@@ -1,0 +1,44 @@
+a {
+    margin: 0.5rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+    list-style: none;
+    
+}
+
+.active{
+    border-bottom: 3px solid #D00500;
+}
+
+.sign-in-header{
+    display: flex;
+    flex-grow: 1;
+    margin: auto;
+    justify-content: center;
+    
+}
+
+.sign-in-button{
+    background-color: #008C5A;
+    color: #FFFFFF;
+    padding: 0.4em;
+    margin: 0.4em;
+    text-align: center;
+    border-radius: 3em;
+    font-size: 1.4em;
+    width: 50%;
+    border-style: none;
+
+}
+
+.sign-in-button h2{
+    margin: 0;
+    padding: 0.2em;
+    
+}
+
+.sign-in-button:hover{
+    cursor: pointer;    
+    background-color: #84C7AF;
+}

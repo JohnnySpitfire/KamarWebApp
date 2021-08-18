@@ -1,0 +1,37 @@
+
+.sidebar-left {grid-area: sidebar-left;}
+.sidebar-right{grid-area: sidebar-right;}
+.card-wrapper{grid-area: card-wrapper;}
+.body{grid-area: body;}
+
+.main-container{
+    display: grid;
+    width: 70%;
+    margin: auto;
+    margin-top: 10px;
+    justify-items: center;
+    align-items: center;
+    grid-template-areas: 
+    "sign-in-warning sign-in-warning sign-in-warning"             
+    "sidebar-left card-wrapper sidebar-right"
+    "body body body";   
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: auto;
+    grid-gap: 15px;
+
+}
+.sidebar-content{
+    margin: 15px;
+    text-align: left;
+}
+
+.body-content{
+    margin: 0 10px 0 10px;
+}
+
+.card:hover{
+    transform: scale(1.05);
+}
+
+
+
