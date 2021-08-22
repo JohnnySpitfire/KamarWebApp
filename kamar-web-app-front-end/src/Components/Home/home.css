@@ -1,0 +1,224 @@
+body {
+    margin: auto 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h3{
+    color: black;
+    font-weight: normal;
+}
+
+h2{
+    font-weight: normal;
+}
+
+li{
+    margin: 0.5rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+    list-style: none;
+    
+}
+
+a {
+    text-decoration: none;
+    color: #008C5A;
+}
+
+a:hover{
+    color:#84C7AF;
+}
+.sign-in-warning{
+    background-color: #D9534F;
+    grid-column: 1/-1;
+    justify-self: stretch;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+@media only screen and (max-width: 950px) {
+
+    .header-links, .sign-in-button{
+        font-size: 1em;
+    }
+}
+
+.zone {
+    background-color: #F3F3F3;
+    border-radius: 2em;
+    justify-self: stretch;
+    align-self: stretch;
+
+}
+
+.card-wrapper{
+    text-align: center;
+}
+
+.card{  
+    background-color: #F3F3F3;
+    border-radius: 2em;
+    box-shadow: 0.2em 0.2em 0.1em lightgray;
+    transition: transform 0.1s, rotate 0.1s, box-shadow 0.1s;
+
+}
+
+.card:hover {  
+    transform: scale(1.1);
+    box-shadow: 0.5em 0.5em 0.2em lightgray;
+}
+
+
+.card-image{
+    justify-items: center;
+    align-items: center;
+    margin: 1em;
+}
+
+.card-text{
+    background-color: #008C5A;
+    color:#FFFFFF;
+    border-bottom-right-radius: 2em;
+    border-bottom-left-radius: 2em;
+}
+
+.card-text h2{
+    margin-bottom: 0;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    position: relative;
+}
+
+.footer-grid{
+    display: flex;
+    background-color: hsl(0, 0%, 9%);
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    justify-content: flex-start;
+    width: 100%;        
+}
+
+.footer-content{
+    margin: 0 1em 0 1em;
+    color: #FFFFFF;
+    padding: 1em;
+}
+
+.footer-content h2{
+    color:#D00500;
+}
+
+.sidebar-left {grid-area: sidebar-left;}
+.sidebar-right{grid-area: sidebar-right;}
+.card-wrapper-index{grid-area: card-wrapper-index;}
+.sign-in-warning{grid-area: sign-in-warning;}
+.ncea-overview-wrapper{grid-area: ncea-overview;}
+.body{grid-area: body;}
+
+.main-container-signedout{
+    display: grid;
+    width: 70%;
+    margin: auto;
+    margin-top: 10px;
+    justify-items: center;
+    align-items: center;
+    grid-template-areas: 
+    "sign-in-warning sign-in-warning sign-in-warning"             
+    "sidebar-left card-wrapper-index sidebar-right"
+    "body body body";   
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: auto;
+    grid-gap: 15px;
+
+}
+
+.main-container-signedin{
+    display: grid;
+    width: 70%;
+    margin: auto;
+    margin-top: 10px;
+    justify-items: center;
+    align-items: center;
+    grid-template-areas: 
+    "ncea-overview ncea-overview ncea-overview"             
+    "sidebar-left card-wrapper-index sidebar-right"
+    "body body body";   
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: auto;
+    grid-gap: 15px;
+
+}
+
+.sidebar-content{
+    margin: 15px;
+    text-align: left;
+}
+
+.body-content{
+    margin: 0 10px 0 10px;
+    text-align: left;
+}
+
+.ncea-overview-heading{grid-area: title;}
+.graph{grid-area: graph;}
+.lastsubass{grid-area: lastsubass;}
+.graph-controls{grid-area: controls;}
+.ncea-details-button{grid-area: nceadetailsbutt;}
+
+.ncea-overview-wrapper{
+    display: grid;
+    grid-template-areas: 
+    'title title nsn'
+    'graph graph controls'
+    'lastsubass lastsubass nceadetailsbutt'; 
+    background-color: #F3F3F3;
+    width: 100%;
+}
+
+.graph{
+    width: 100%;
+}
+
+.controls{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.ncea-overview-button{
+    margin: 15%;
+    padding: 5%;
+}
+
+.lastsubass{
+    text-align: left;
+    padding: 5px;
+    padding-left: 20px;
+    margin: 5px;
+}
+
+.card-index:hover{
+    transform: scale(1.05);
+}
+
+.card-wrapper-index {
+    width:100%
+}
+
+.card-index{
+    width:100%;
+    background-color: #F3F3F3;
+    border-radius: 2em;
+    box-shadow: 0.2em 0.2em 0.1em lightgray;
+    transition: transform 0.1s, rotate 0.1s, box-shadow 0.1s;
+}
+
+.card-wrapper-index{
+    text-align: center;
+}
+
+.card-image-index{  
+   width: 50%;
+   padding:2em;
+}
