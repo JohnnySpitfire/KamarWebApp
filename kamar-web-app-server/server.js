@@ -64,7 +64,7 @@ app.post('/signin', (req, res) => {
 //       .returning('email')
 //       .then(loginEmail =>{
 //           return trx('users')
-//           .returning('*')
+//           . returning('*')
 //           .insert({
 //               name: name,
 //               email: loginEmail[0],
@@ -96,7 +96,7 @@ app.get('/profile/:username', (req, res) =>{
 
 app.listen(3000, ()=>{
     console.log('I\'m listening! :)');
-    bcrypt.hashSync("l1Thyrus", 10, function(err, hash) {
-    console.log(hash);
+    bcrypt.hash("Logan1", 10, function(err, hash) {
+        console.log(err, hash);
     });
 });

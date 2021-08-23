@@ -4,13 +4,13 @@ import { Bar } from "react-chartjs-2";
 const StackedBarChart = (props) => {
     console.log(props.data);
     return (
-      <div className='graph'>
+      <div className={props.graphClassName + ' graph'}>
         <Bar 
             data= {props.data}
             options={{
               plugins: {
                 title: {
-                  display: true,
+                  display: true,  
                   text: 'Credits Goal'
                 },
               },

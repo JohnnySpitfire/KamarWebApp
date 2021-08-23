@@ -177,10 +177,21 @@ a:hover{
 }
 
 .graph{
-    width: 100%;
+    justify-self: center;
 }
 
-.controls{
+.creditGoals{
+    width: 70%;
+
+}
+.totalCredits{
+    width: 45%;
+}
+.subjectCredits{
+    width: 80%;
+}
+
+.graph-controls{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -189,6 +200,24 @@ a:hover{
 .ncea-overview-button{
     margin: 15%;
     padding: 5%;
+}
+
+.ncea-details-button-wrapper{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+#ncea-details-button{
+    width: 80%;
+    padding: 5%;
+    justify-self: center;
+    border-radius: 2em;
+    text-decoration: none;
+    border: none;
+    align-self: center;
+    color: #fff;
+    background-color: #008C5A;
+    font-size: 1.3em;
 }
 
 .lastsubass{
