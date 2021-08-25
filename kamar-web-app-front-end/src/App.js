@@ -27,22 +27,18 @@ class App extends Component {
         },
         userNCEAProfile: {
           nsn: '',
-          totalcredits: 0,
-          excellencecredits: 0,
-          meritcredits: 0,
-          achievedcredits: 0,
-          notachievedcredits: 0,
+          credits: [[0, 0, 0, 0],
+                    [0, 0, 0, 0],
+                    [0, 0, 0, 0]],
           lastsubmittedassessment : [],
-          excellencecreditsgoal: 0,
-          meritcreditsgoal: 0,
-          achievedcreditsgoal: 0
+          creditGoals: [0, 0, 0, 0]
       }
     }
   }
 
   loadUser = (data) => {
     const { username, name, email, subjects, level } = data[0];
-    const { totalcredits, excellencecredits, meritcredits, achievedcredits, notachievedcredits , lastsubmittedassessment , excellencecreditsgoal, meritcreditsgoal, achievedcreditsgoal } = data[1];
+    const { credits, lastsubmittedassessment , creditGoals} = data[1];
     this.setState({user:{
                           id: data[0].id,
                           username,
@@ -55,15 +51,9 @@ class App extends Component {
                   userNCEAProfile:{ 
                                     id: data[1].id,
                                     nsn: data[1].nsn,
-                                    totalcredits,
-                                    excellencecredits,
-                                    meritcredits,
-                                    achievedcredits,
-                                    notachievedcredits,
+                                    credits,
+                                    creditGoals,
                                     lastsubmittedassessment ,
-                                    excellencecreditsgoal,
-                                    meritcreditsgoal,
-                                    achievedcreditsgoal
                                   }, isSignedIn: true
   })
 }

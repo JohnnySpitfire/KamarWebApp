@@ -187,6 +187,11 @@ a:hover{
 .totalCredits{
     width: 45%;
 }
+
+.currentYearTotalCredits{
+    width: 45%;
+}
+
 .subjectCredits{
     width: 80%;
 }

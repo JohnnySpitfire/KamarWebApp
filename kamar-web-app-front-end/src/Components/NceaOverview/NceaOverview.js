@@ -10,21 +10,12 @@ class NceaOverview extends React.Component {
         super(props);
         console.log(props)
         this.state = {
-            CreditCount:[
-                         this.props.userNCEAProfile.excellencecredits,
-                         this.props.userNCEAProfile.meritcredits,
-                         this.props.userNCEAProfile.achievedcredits,
-                         this.props.userNCEAProfile.notachievedcredits
-                        ],
-            CreditCountGoal:
-                        [
-                        this.props.userNCEAProfile.excellencecreditsgoal,
-                        this.props.userNCEAProfile.meritcreditsgoal,
-                        this.props.userNCEAProfile.achievedcreditsgoal,
-                        0
-                        ],
+            level3Credits: this.props.userNCEAProfile.credits[0],
+            level2Credits: this.props.userNCEAProfile.credits[1],
+            level1Credits: this.props.userNCEAProfile.credits[2],
+            creditGoals: this.props.userNCEAProfile.creditGoals,
             lastSubAssBGColour: '',
-            activeGraph: 'totalCredits'
+            activeGraph: 'currentYearTotalCredits'
             }
     }
 
@@ -32,19 +23,19 @@ class NceaOverview extends React.Component {
         this.setState({activeGraph: newGraph})
     }
 
-    InitStackedBarGraphData(state){
+    InitStackedBarGraphData(submittedCredits, creditGoals){
         const data = {
             labels: ['Excellence Credits', 'Merit Credits', 'Achieved Credits', 'Not Achieved Credits'],
             datasets: [
                 {
                     label: 'Submitted Credits',
-                    data: state.CreditCount,
+                    data: submittedCredits,
                     backgroundColor: 'rgba(255, 99, 132, 1)'
     
                 },
                 {
-                    label: 'Credits Goal',
-                    data: state.CreditCountGoal,
+                    label: 'Credit Goals',
+                    data: creditGoals,
                     backgroundColor: 'rgba(54, 162, 235, 0.5)'
                 }
             ]
@@ -52,13 +43,14 @@ class NceaOverview extends React.Component {
         return data
     }
 
-    InitPieGraphData(state){
+    InitPieGraphData(submittedCredits){
+
         const data = {
             labels: ['Excellence Credits', 'Merit Credits', 'Achieved Credits', 'Not Achieved Credits'],
             datasets: [
                 {
                     label: 'Submitted Credits',
-                    data: state.CreditCount,
+                    data: submittedCredits,
                     backgroundColor: ['rgba(255, 204, 51, 1)',
                                       'rgba(2, 117, 216, 1)',
                                       'rgba(0, 128, 0, 1)',
@@ -67,6 +59,16 @@ class NceaOverview extends React.Component {
             ]
         }
         return data
+    }
+
+    getCreditTotals = () => {
+        const {level3Credits, level2Credits, level1Credits} = this.state
+        const totalCredits = []
+        for (let i = 0; i < level3Credits.length; i++) {
+            const totalGradeCredits = level3Credits[i] + level2Credits[i] + level1Credits[i]
+            totalCredits.push(totalGradeCredits);
+          }
+        return totalCredits
     }
 
     SetLastSubmittedAssessmentBackgroundColor() {
@@ -117,22 +119,25 @@ class NceaOverview extends React.Component {
 
     render(){
         console.log('ncea overview state', this.state);
-        const { userNCEAProfile } = this.props;
+        const { nsn, lastsubmittedassessment } = this.props.userNCEAProfile;
+        const { activeGraph, level3Credits, creditGoals, lastSubAssBGColour } = this.state;
         return(
                 <div className='ncea-overview-wrapper'>
                     <h1 className='ncea-overview-heading'>NCEA Overview</h1>
-                    <p>{userNCEAProfile.nsn}</p>
-                    {this.state.activeGraph === 'creditGoals' ?<StackedBarChart graphClassName={this.state.activeGraph} data={this.InitStackedBarGraphData(this.state)}/>:
-                     this.state.activeGraph === 'totalCredits' ?<PieChart graphClassName={this.state.activeGraph} data={this.InitPieGraphData(this.state)}/>:
+                    <p>{nsn}</p>
+                    {activeGraph === 'creditGoals' ?<StackedBarChart graphClassName={activeGraph} data={this.InitStackedBarGraphData(level3Credits, creditGoals)}/>:
+                     activeGraph === 'currentYearTotalCredits' ?<PieChart graphClassName={activeGraph} data={this.InitPieGraphData(level3Credits)}/>:
+                     activeGraph === 'totalCredits' ?<PieChart graphClassName={activeGraph} data={this.InitPieGraphData(this.getCreditTotals())}/>:
                      <div></div>}
                     <div className='graph-controls'>
                          <button onClick={() => this.UpdateActiveGraph('creditGoals')} className='ncea-overview-button'>Credit Goals</button>
+                         <button onClick={() => this.UpdateActiveGraph('currentYearTotalCredits')} className='ncea-overview-button'>Current Year Total Credits</button>
                          <button onClick={() => this.UpdateActiveGraph('totalCredits')} className='ncea-overview-button'>Total Credits</button>
                          <button onClick={() => this.UpdateActiveGraph('subjectCredits')} className='ncea-overview-button'>Subject Credits</button>
                     </div>
-                    <div className='lastsubass' style={{background: this.state.lastSubAssBGColour}}>
+                    <div className='lastsubass' style={{background: lastSubAssBGColour}}>
                         <h3>Last Submitted Assesment: </h3>
-                        <p>{userNCEAProfile.lastsubmittedassessment[0]} : {userNCEAProfile.lastsubmittedassessment[1]} | {userNCEAProfile.lastsubmittedassessment[2]}</p>
+                        <p>{lastsubmittedassessment[0]} : {lastsubmittedassessment[1]} | {lastsubmittedassessment[2]}</p>
                     </div>
                     <div className='ncea-details-button-wrapper'>
                         <NceaDetailsButton OnNceaDetailsClick={this.OnNceaDetailsClick}/>

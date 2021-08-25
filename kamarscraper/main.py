@@ -6,12 +6,17 @@ from bs4 import BeautifulSoup
 import json
 import getpass
 import psycopg2
-import sys
+import bcrypt
 
 
-usernameInput = input('please enter your username: ')
-nsn = input('please enter your nsn: ')
+usernameInput = input('please enter your student id: ')
+fullNameInput = input('please enter your full name: ')
+nsnInput = input('please enter your nsn: ')
+levelInput = input('please enter your NCEA level as a number: ')
 passwordInput = getpass.getpass()
+
+email = f'{usernameInput}@trinityschools.nz'
+levelInput = int(levelInput)
 
 driver = webdriver.Firefox(executable_path='./geckodriver.exe')
 
@@ -117,23 +122,36 @@ DataSerialisedJsonArray = [level3DataSerialisedJSON, level2DataSerialisedJSON, l
 DataRawJSON = json.dumps(DataRawJsonArray)
 DataSerialisedJSON = json.dumps(DataSerialisedJsonArray)
 
+password = fullNameInput.split(' ')[0] + '1'
+password = bytes(password, 'utf-8')
+passwordHash = bcrypt.hashpw(password, bcrypt.gensalt(10))
+
+passwordHash = passwordHash.decode()
+
 conn = psycopg2.connect("dbname=kamar_web_app user=postgres password=l1Thyrus")
-
-# Open a cursor to perform database operations
+#
+# # Open a cursor to perform database operations
 cur = conn.cursor()
+#
+# # Pass data to fill a query placeholders and let Psycopg perform
+# # the correct conversion (no more SQL injections!)
+cur.execute(f"INSERT INTO login (username, hash) VALUES ('{usernameInput}','{passwordHash}')")
 
-# Pass data to fill a query placeholders and let Psycopg perform
-# the correct conversion (no more SQL injections!)
 cur.execute(f"INSERT INTO users_submittedassesments (nsn, submittedassesmentsraw, submittedassesmentsserialised) "
-            f"VALUES ('{nsn}','{DataRawJSON}','{DataSerialisedJSON}')")
+            f"VALUES ('{nsnInput}','{DataRawJSON}','{DataSerialisedJSON}')")
+#
+cur.execute(f"INSERT INTO users (username, name, email, nsn, subjects, level) "
+            f"VALUES ('{usernameInput}','{fullNameInput}','{email}','{nsnInput}',"
+            f"ARRAY['Calculus','Biology','DigitalTechnologies','Physics','Chemistry'],"
+            f"{levelInput})")
 
-# Make the changes to the database persistent
+cur.execute(f"INSERT INTO users_nceaoverview (nsn) VALUES ('{nsnInput}')")
+#
+# # Make the changes to the database persistent
 conn.commit()
-
-# Close communication with the database
+#
+# # Close communication with the database
 cur.close()
 conn.close()
 
 driver.close()
-
-sys.exit()

@@ -52,7 +52,7 @@
  [],
  False,
  False,
- 1629855210,
+ 1629893891,
  [('run.exe',
    'c:\\users\\benan\\pycharmprojects\\kamarscraper\\venv\\lib\\site-packages\\PyInstaller\\bootloader\\Windows-64bit\\run.exe',
    'EXECUTABLE')])

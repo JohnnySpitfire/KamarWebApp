@@ -28,6 +28,58 @@ app.get('/', (req, res)=>{
 });
 
 
+
+const UpdateNCEAOverview = (nsn) => {
+    db.select('*').from('users_submittedassesments').where('nsn', '=', nsn)
+    .then(user => {
+        console.log('runningupdatenceaoverview',user)
+        const nsn = user[0].nsn;
+        const submittedAssesmentsJSON = JSON.parse(user[0].submittedassesmentsserialised);
+
+        const level3Assesments = submittedAssesmentsJSON[0]
+        const level2Assesments = submittedAssesmentsJSON[1]
+        const level1Assesments = submittedAssesmentsJSON[2]
+
+        let credits = [[0, 0, 0, 0],
+                       [0, 0, 0, 0],
+                       [0, 0, 0, 0]]
+
+
+        const getCredits = (assesmentArray, credits) =>{
+            assesmentArray.forEach((assesment) => {
+                switch(assesment.value){
+                    case 'E':
+                        credits[0] += assesment.number
+                        break
+                    case 'M':
+                        credits[1] += assesment.number
+                        break
+                    case 'A':
+                        credits[2] += assesment.number
+                        break
+                    case 'N':
+                        credits[3] += assesment.number
+                        break
+                    default:
+                        throw new error
+                }
+            })
+        }
+
+        getCredits(level3Assesments, credits[0])
+        getCredits(level2Assesments, credits[1])
+        getCredits(level1Assesments, credits[2])
+
+        console.log('credits', credits)
+
+        db('users_nceaoverview').where('nsn', '=', nsn).update({
+           credits: credits,
+           lastsubmittedassessment: ['Bio stuff', 'Credits: 4', 'E']
+        })
+        .catch(err => console.log(err.message))
+    })
+}
+
 app.post('/signin', (req, res) => {
       db.select('username', 'hash').from('login').where('username','=', req.body.username)
       .then(data =>{
@@ -37,6 +89,7 @@ app.post('/signin', (req, res) => {
              return db.select('*').from('users')
              .where('username', '=', req.body.username)
              .then(user => {
+                UpdateNCEAOverview(user[0].nsn)
                 db.select('*').from('users_nceaoverview')
                 .where('nsn', '=', user[0].nsn)
                 .then(userncea => {
@@ -50,36 +103,6 @@ app.post('/signin', (req, res) => {
       })
       .catch(err => res.status(400).json(err.message))
 })
-
-// app.post('/register', (req, res) => {z
-//   const {name, email, password} = req.body
-//   const hash = bcrypt.hashSync(password);
-  
-//   db.transaction(trx => {
-//       trx.insert({
-//           hash: hash,
-//           email : email
-//       })
-//       .into('login')
-//       .returning('email')
-//       .then(loginEmail =>{
-//           return trx('users')
-//           . returning('*')
-//           .insert({
-//               name: name,
-//               email: loginEmail[0],
-//               joined: new Date()
-//           })
-//           .then(user => {
-//               res.json(user);
-//           })
-//       })
-//       .then(trx.commit)
-//       .catch(trx.rollback)
-//   })
-// .catch(err => res.status(400).json('unable to register'));
-  
-// });
 
 app.get('/profile/:username', (req, res) =>{
   
@@ -96,7 +119,8 @@ app.get('/profile/:username', (req, res) =>{
 
 app.listen(3000, ()=>{
     console.log('I\'m listening! :)');
-    bcrypt.hash("Logan1", 10, function(err, hash) {
-        console.log(err, hash);
-    });
+    // bcrypt.hash("Ben1", 10, function(err, hash) {
+    //     console.log(hash);
+    // });
+     console.log(bcrypt.compareSync('Ben1', '$2b$10$nBvu/OAV5X4JmZpSvntYW.ELnz7z8vEtQxDiT9xWOu8D3yreG1Tca'));
 });
