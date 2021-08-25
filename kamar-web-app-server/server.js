@@ -37,7 +37,7 @@ app.post('/signin', (req, res) => {
              return db.select('*').from('users')
              .where('username', '=', req.body.username)
              .then(user => {
-                db.select('*').from('users_ncea')
+                db.select('*').from('users_nceaoverview')
                 .where('nsn', '=', user[0].nsn)
                 .then(userncea => {
                     console.log(userncea);
