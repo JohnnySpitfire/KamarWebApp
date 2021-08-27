@@ -64,7 +64,7 @@ class App extends Component {
       <Router>
             <Switch>
               <Route path='/Home'>
-                <Home userNCEAProfile={this.state.userNCEAProfile} isSignedIn={this.state.isSignedIn}/>
+              <Home fullName = {this.state.user.name} userNCEAProfile={this.state.userNCEAProfile} isSignedIn={this.state.isSignedIn}/>
               </Route>
               <Route path='/SubjectResources'>
                 <SubjectResources/>

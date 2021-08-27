@@ -119,21 +119,26 @@ class NceaOverview extends React.Component {
 
     render(){
         console.log('ncea overview state', this.state);
-        const { nsn, lastsubmittedassessment } = this.props.userNCEAProfile;
+        const { lastsubmittedassessment } = this.props.userNCEAProfile;
         const { activeGraph, level3Credits, creditGoals, lastSubAssBGColour } = this.state;
         return(
                 <div className='ncea-overview-wrapper'>
                     <h1 className='ncea-overview-heading'>NCEA Overview</h1>
-                    <p>{nsn}</p>
-                    {activeGraph === 'creditGoals' ?<StackedBarChart graphClassName={activeGraph} data={this.InitStackedBarGraphData(level3Credits, creditGoals)}/>:
-                     activeGraph === 'currentYearTotalCredits' ?<PieChart graphClassName={activeGraph} data={this.InitPieGraphData(level3Credits)}/>:
-                     activeGraph === 'totalCredits' ?<PieChart graphClassName={activeGraph} data={this.InitPieGraphData(this.getCreditTotals())}/>:
+                    {/* <p className='ncea-overview-nsn'>Your NSN is: {nsn}</p> */}
+                    {activeGraph === 'creditGoals' ?<div className='graph-wrapper'>
+                                                        <StackedBarChart graphTitle='Credit Goals' graphClassName={activeGraph} data={this.InitStackedBarGraphData(level3Credits, creditGoals)}/>
+                                                        <div className = 'credit-goals-input'>
+                                                            
+                                                        </div>
+                                                    </div>:
+                     activeGraph === 'currentYearTotalCredits' ?<PieChart graphTitle="This Year's Total Credits" graphClassName={activeGraph} data={this.InitPieGraphData(level3Credits)}/>:
+                     activeGraph === 'totalCredits' ?<PieChart graphTitle='Total Credits' graphClassName={activeGraph} data={this.InitPieGraphData(this.getCreditTotals())}/>:
                      <div></div>}
                     <div className='graph-controls'>
-                         <button onClick={() => this.UpdateActiveGraph('creditGoals')} className='ncea-overview-button'>Credit Goals</button>
-                         <button onClick={() => this.UpdateActiveGraph('currentYearTotalCredits')} className='ncea-overview-button'>Current Year Total Credits</button>
-                         <button onClick={() => this.UpdateActiveGraph('totalCredits')} className='ncea-overview-button'>Total Credits</button>
-                         <button onClick={() => this.UpdateActiveGraph('subjectCredits')} className='ncea-overview-button'>Subject Credits</button>
+                         <button  onClick={() => this.UpdateActiveGraph('creditGoals')} className='ncea-overview-button'>Credit Goals</button>
+                         <button  onClick={() => this.UpdateActiveGraph('currentYearTotalCredits')} className='ncea-overview-button'>Current Year Total Credits</button>
+                         <button  onClick={() => this.UpdateActiveGraph('totalCredits')} className='ncea-overview-button'>Total Credits</button>
+                         <button graphTitle='Subject Credits' onClick={() => this.UpdateActiveGraph('subjectCredits')} className='ncea-overview-button'>Subject Credits</button>
                     </div>
                     <div className='lastsubass' style={{background: lastSubAssBGColour}}>
                         <h3>Last Submitted Assesment: </h3>

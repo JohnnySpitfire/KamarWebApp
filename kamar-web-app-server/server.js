@@ -122,5 +122,5 @@ app.listen(3000, ()=>{
     // bcrypt.hash("Ben1", 10, function(err, hash) {
     //     console.log(hash);
     // });
-     console.log(bcrypt.compareSync('Ben1', '$2b$10$nBvu/OAV5X4JmZpSvntYW.ELnz7z8vEtQxDiT9xWOu8D3yreG1Tca'));
+    //  console.log(bcrypt.compareSync('Ben1', '$2b$10$nBvu/OAV5X4JmZpSvntYW.ELnz7z8vEtQxDiT9xWOu8D3yreG1Tca'));
 });

@@ -8,15 +8,22 @@ import getpass
 import psycopg2
 import bcrypt
 
+programFunc = input('Do you wish to update a user or initialise a new user? I/U: ')
 
-usernameInput = input('please enter your student id: ')
-fullNameInput = input('please enter your full name: ')
-nsnInput = input('please enter your nsn: ')
-levelInput = input('please enter your NCEA level as a number: ')
-passwordInput = getpass.getpass()
+if programFunc.lower() == 'i':
+    usernameInput = input('please enter your student id: ')
+    fullNameInput = input('please enter your full name: ')
+    nsnInput = input('please enter your nsn: ')
+    levelInput = input('please enter your NCEA level as a number: ')
+    passwordInput = getpass.getpass()
+    email = f'{usernameInput}@trinityschools.nz'
+    levelInput = int(levelInput)
+    if len(nsnInput) == 10:
+        nsnInput = nsnInput[1:]
 
-email = f'{usernameInput}@trinityschools.nz'
-levelInput = int(levelInput)
+if programFunc.lower() == 'u':
+    usernameInput = input('please enter your student id: ')
+    passwordInput = getpass.getpass()
 
 driver = webdriver.Firefox(executable_path='./geckodriver.exe')
 
@@ -122,31 +129,37 @@ DataSerialisedJsonArray = [level3DataSerialisedJSON, level2DataSerialisedJSON, l
 DataRawJSON = json.dumps(DataRawJsonArray)
 DataSerialisedJSON = json.dumps(DataSerialisedJsonArray)
 
-password = fullNameInput.split(' ')[0] + '1'
-password = bytes(password, 'utf-8')
-passwordHash = bcrypt.hashpw(password, bcrypt.gensalt(10))
-
-passwordHash = passwordHash.decode()
-
 conn = psycopg2.connect("dbname=kamar_web_app user=postgres password=l1Thyrus")
 #
 # # Open a cursor to perform database operations
 cur = conn.cursor()
-#
-# # Pass data to fill a query placeholders and let Psycopg perform
-# # the correct conversion (no more SQL injections!)
-cur.execute(f"INSERT INTO login (username, hash) VALUES ('{usernameInput}','{passwordHash}')")
+if programFunc.lower() == 'i':
+    password = fullNameInput.split(' ')[0] + '1'
+    password = bytes(password, 'utf-8')
+    passwordHash = bcrypt.hashpw(password, bcrypt.gensalt(10))
 
-cur.execute(f"INSERT INTO users_submittedassesments (nsn, submittedassesmentsraw, submittedassesmentsserialised) "
-            f"VALUES ('{nsnInput}','{DataRawJSON}','{DataSerialisedJSON}')")
-#
-cur.execute(f"INSERT INTO users (username, name, email, nsn, subjects, level) "
-            f"VALUES ('{usernameInput}','{fullNameInput}','{email}','{nsnInput}',"
-            f"ARRAY['Calculus','Biology','DigitalTechnologies','Physics','Chemistry'],"
-            f"{levelInput})")
+    passwordHash = passwordHash.decode()
 
-cur.execute(f"INSERT INTO users_nceaoverview (nsn) VALUES ('{nsnInput}')")
-#
+    cur.execute(f"INSERT INTO login (username, hash) VALUES ('{usernameInput}','{passwordHash}')")
+
+    cur.execute(f"INSERT INTO users_submittedassesments (nsn, submittedassesmentsraw, submittedassesmentsserialised) "
+                f"VALUES ('{nsnInput}','{DataRawJSON}','{DataSerialisedJSON}')")
+    #
+    cur.execute(f"INSERT INTO users (username, name, email, nsn, subjects, level) "
+                f"VALUES ('{usernameInput}','{fullNameInput}','{email}','{nsnInput}',"
+                f"ARRAY['Calculus','Biology','DigitalTechnologies','Physics','Chemistry'],"
+                f"{levelInput})")
+
+    cur.execute(f"INSERT INTO users_nceaoverview (nsn) VALUES ('{nsnInput}')")
+
+if programFunc.lower() == 'u':
+    cur.execute(f"SELECT nsn FROM users WHERE username = '{usernameInput}'")
+    nsnDatabase = str(cur.fetchall()[0])[2:-3]
+    cur.execute(f"UPDATE users_submittedassesments "
+                f"SET submittedassesmentsraw = '{DataRawJSON}', submittedassesmentsserialised = '{DataSerialisedJSON}' "
+                f"WHERE nsn = '{nsnDatabase}'")
+
+
 # # Make the changes to the database persistent
 conn.commit()
 #

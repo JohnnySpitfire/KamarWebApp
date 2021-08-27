@@ -9,12 +9,19 @@ import {ReactComponent as SubjectResourcesImage} from '../img/card/subject-resou
 
 
 const Home = (props) => {
-console.log(props.userNCEAProfile);
 return(
     <React.Fragment>
           <Header/>
             <div className={props.isSignedIn? 'main-container-signedin' : 'main-container-signedout'}>
-                {props.isSignedIn?<NceaOverview userNCEAProfile={props.userNCEAProfile}/>:<div className="sign-in-warning"><h2><strong>To gain full access please sign in</strong></h2></div>}
+                {props.isSignedIn?
+                    <React.Fragment>
+                        <div className="welcome-banner">
+                            <h2 className='welcome-name'>Welcome {props.fullName}</h2>
+                            <h2 className='welcome-nsn'>Your NSN is: {props.userNCEAProfile.nsn}</h2>
+                        </div>
+                        <NceaOverview userNCEAProfile={props.userNCEAProfile}/>
+                    </React.Fragment>:
+                    <div className="sign-in-warning"><h2><strong>To gain full access please sign in</strong></h2></div>}
                         <div className="sidebar-left zone">
                             <div className="sidebar-content">
                             <h3>External Links</h3>
@@ -25,7 +32,7 @@ return(
                     </div>
                     <div className="card-wrapper-index">
                         <Link to='./SubjectResources'>
-                        <div className="card-index">
+                        <div className="card-index">    
                                 <SubjectResourcesImage className='card-image-index' height="50%" width="50%"/>
                             <div className="card-text">
                                 <h2>Subject Resources</h2>
@@ -36,11 +43,11 @@ return(
                     <div className="sidebar-right zone">
                         <div className="sidebar-content">
                         <h3>Popular Pages</h3>
-                            <li><a href="">Page 1</a></li>
+                            {/* <li><a href="">Page 1</a></li>
                             <li><a href="">Page 2</a></li>
                             <li><a href="">Page 3</a></li>
                             <li><a href="">Page 4</a></li>
-                            <li><a href="">Page 5</a></li>
+                            <li><a href="">Page 5</a></li> */}
                     </div>
                 </div>
                     <div className="body zone">
