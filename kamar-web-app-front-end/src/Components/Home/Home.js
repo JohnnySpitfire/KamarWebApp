@@ -19,7 +19,7 @@ return(
                             <h2 className='welcome-name'>Welcome {props.fullName}</h2>
                             <h2 className='welcome-nsn'>Your NSN is: {props.userNCEAProfile.nsn}</h2>
                         </div>
-                        <NceaOverview userNCEAProfile={props.userNCEAProfile}/>
+                        <NceaOverview updateCreditGoals={props.updateCreditGoals} userNCEAProfile={props.userNCEAProfile}/>
                     </React.Fragment>:
                     <div className="sign-in-warning"><h2><strong>To gain full access please sign in</strong></h2></div>}
                         <div className="sidebar-left zone">

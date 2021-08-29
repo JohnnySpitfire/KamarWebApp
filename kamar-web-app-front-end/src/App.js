@@ -36,9 +36,16 @@ class App extends Component {
     }
   }
 
+  updateCreditGoals = (creditGoalsInput) =>{
+      console.log('input', creditGoalsInput)
+      this.setState({userNCEAProfile:{...this.state.userNCEAProfile, creditGoals: creditGoalsInput}})
+      console.log(this.state.userNCEAProfile.creditGoals)
+  }
+
   loadUser = (data) => {
+    console.log(data)
     const { username, name, email, subjects, level } = data[0];
-    const { credits, lastsubmittedassessment , creditGoals} = data[1];
+    const { credits, lastsubmittedassessment, creditgoals} = data[1];
     this.setState({user:{
                           id: data[0].id,
                           username,
@@ -49,12 +56,12 @@ class App extends Component {
                           level,
                         },
                   userNCEAProfile:{ 
-                                    id: data[1].id,
-                                    nsn: data[1].nsn,
-                                    credits,
-                                    creditGoals,
-                                    lastsubmittedassessment ,
-                                  }, isSignedIn: true
+                          nsn: data[1].nsn,
+                          credits: credits,
+                          creditGoals: creditgoals,
+                          lastsubmittedassessment ,
+                                  }, 
+                  isSignedIn: true
   })
 }
   render () {
@@ -64,7 +71,7 @@ class App extends Component {
       <Router>
             <Switch>
               <Route path='/Home'>
-              <Home fullName = {this.state.user.name} userNCEAProfile={this.state.userNCEAProfile} isSignedIn={this.state.isSignedIn}/>
+              <Home fullName = {this.state.user.name} updateCreditGoals={this.updateCreditGoals} userNCEAProfile={this.state.userNCEAProfile} isSignedIn={this.state.isSignedIn}/>
               </Route>
               <Route path='/SubjectResources'>
                 <SubjectResources/>

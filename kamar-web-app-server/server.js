@@ -32,7 +32,6 @@ app.get('/', (req, res)=>{
 const UpdateNCEAOverview = (nsn) => {
     db.select('*').from('users_submittedassesments').where('nsn', '=', nsn)
     .then(user => {
-        console.log('runningupdatenceaoverview',user)
         const nsn = user[0].nsn;
         const submittedAssesmentsJSON = JSON.parse(user[0].submittedassesmentsserialised);
 
@@ -74,11 +73,20 @@ const UpdateNCEAOverview = (nsn) => {
 
         db('users_nceaoverview').where('nsn', '=', nsn).update({
            credits: credits,
-           lastsubmittedassessment: ['Bio stuff', 'Credits: 4', 'E']
+           lastsubmittedassessment: [level3Assesments[0].title, level3Assesments[0].number, level3Assesments[0].value]
         })
         .catch(err => console.log(err.message))
     })
 }
+
+app.post('/updateuser', (req, res) => {
+    db('users_nceaoverview').where('nsn', '=', req.body.nsn).update({
+        creditgoals: req.body.creditGoals
+     }).catch(err => res.status(500).json(err))
+     .then(res.status(200).json('success'))
+     .catch(err => res.status(500).json(err))
+ })
+
 
 app.post('/signin', (req, res) => {
       db.select('username', 'hash').from('login').where('username','=', req.body.username)

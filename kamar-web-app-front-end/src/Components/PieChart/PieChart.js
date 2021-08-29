@@ -3,7 +3,7 @@ import { Pie } from 'react-chartjs-2'
 
 const PieChart = (props) =>{
     return(
-        <div className={props.graphClassName + ' graph-wrapper'}>
+        <div className={props.graphClassName + ' graph'}>
             <Pie data={props.data} options={{radius:'80%', 
                                             layout: {
                                                      padding:20
@@ -18,7 +18,9 @@ const PieChart = (props) =>{
                                                         }
                                                     }, 
                                             hoverOffset:20, 
-                                            hoverBorderWidth: 3
+                                            hoverBorderWidth: 3,
+                                            maintainAspectRatio: true,
+                                            responsive: true, 
                                             }}/>
         </div>
     )

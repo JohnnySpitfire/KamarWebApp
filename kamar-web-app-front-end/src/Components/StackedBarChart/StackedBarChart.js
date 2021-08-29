@@ -2,7 +2,6 @@ import React from 'react';
 import { Bar } from "react-chartjs-2";
 
 const StackedBarChart = (props) => {
-    console.log(props.data);
     return (
       <div className={props.graphClassName}>
         <Bar 
@@ -16,14 +15,16 @@ const StackedBarChart = (props) => {
                             size: 25
                         }
                     }
-                }, 
-              responsive: true,
+                },
+              indexAxis: 'y',
+              maintainAspectRatio: true,
+              responsive: true, 
               scales: {
                 x: {
-                  stacked: true,
+                  stacked: false,
                 },
                 y: {
-                  stacked: true
+                  stacked: false
                 }
               }
             }

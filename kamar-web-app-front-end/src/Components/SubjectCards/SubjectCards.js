@@ -4,7 +4,6 @@ import Card from '../Card/Card';
 
 const SubjectCards = (subjectList) => {
     const cardList = subjectList.map((props, i) => {
-
         return (<Card id={subjectList[i].id}
                      name={subjectList[i].name} 
                      title={subjectList[i].title} 

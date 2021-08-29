@@ -5,17 +5,12 @@ import NceaDetailsButton from '../NceaDetailsButton/NceaDetailsButton';
 
 
 class NceaOverview extends React.Component {
-
     constructor(props) {
         super(props);
-        console.log(props)
         this.state = {
-            level3Credits: this.props.userNCEAProfile.credits[0],
-            level2Credits: this.props.userNCEAProfile.credits[1],
-            level1Credits: this.props.userNCEAProfile.credits[2],
-            creditGoals: this.props.userNCEAProfile.creditGoals,
             lastSubAssBGColour: '',
-            activeGraph: 'currentYearTotalCredits'
+            activeGraph: 'currentYearTotalCredits',
+            creditGoals: this.props.userNCEAProfile.creditGoals
             }
     }
 
@@ -28,15 +23,15 @@ class NceaOverview extends React.Component {
             labels: ['Excellence Credits', 'Merit Credits', 'Achieved Credits', 'Not Achieved Credits'],
             datasets: [
                 {
+                    label: 'Credit Goals',
+                    data: creditGoals,
+                    backgroundColor: 'rgba(54, 162, 235, 1)'
+                },
+                {
                     label: 'Submitted Credits',
                     data: submittedCredits,
                     backgroundColor: 'rgba(255, 99, 132, 1)'
     
-                },
-                {
-                    label: 'Credit Goals',
-                    data: creditGoals,
-                    backgroundColor: 'rgba(54, 162, 235, 0.5)'
                 }
             ]
         }
@@ -62,10 +57,9 @@ class NceaOverview extends React.Component {
     }
 
     getCreditTotals = () => {
-        const {level3Credits, level2Credits, level1Credits} = this.state
         const totalCredits = []
-        for (let i = 0; i < level3Credits.length; i++) {
-            const totalGradeCredits = level3Credits[i] + level2Credits[i] + level1Credits[i]
+        for (let i = 0; i < this.props.userNCEAProfile.credits[0].length; i++) {
+            const totalGradeCredits = this.props.userNCEAProfile.credits[0][i] + this.props.userNCEAProfile.credits[1][i] + this.props.userNCEAProfile.credits[2][i]
             totalCredits.push(totalGradeCredits);
           }
         return totalCredits
@@ -92,53 +86,98 @@ class NceaOverview extends React.Component {
         }
     }
 
-    OnNceaDetailsClick = (history) => {
-        fetch('http://localhost:3000/nceadetails', {
+    
+    updateCreditGoals = (event, arrayPos) => {
+        const creditGoalsClone = this.state.creditGoals.slice();
+        creditGoalsClone[arrayPos] = event.target.value;
+        this.setState({creditGoals: creditGoalsClone});
+    }
+
+    setBlankGoalInputToZero = (event, arrayPos) =>{
+        if (event.target.value === ''){
+            event.target.value = 0;
+        }
+        this.updateCreditGoals(event, arrayPos)
+    }
+
+    postCreditGoals = () => {
+        fetch('http://localhost:3000/updateuser', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-              username: this.state.signInUsername,
-              password: this.state.signInPassword
-          })
+                nsn: this.props.userNCEAProfile.nsn,
+                creditGoals: this.state.creditGoals
+            })
         })
-        .then(response => response.json())
-        .then(user => {
-            if (user[0].id){
-              this.setState({ validUser: true});
-              this.props.loadUser(user);
-              history.push('NCEADetails');
-            } else if (!user.id){
-                this.setState({signInMessage: 'Incorrect Username/Password Combination'});
-            }
-        }).catch(err => console.log(err))
-      }
+        this.props.updateCreditGoals(this.state.creditGoals)
+    }
+
+    // OnNceaDetailsClick = (history) => {
+    //     fetch('http://localhost:3000/nceadetails', {
+    //         method: 'POST',
+    //         headers: {'Content-Type': 'application/json'},
+    //         body: JSON.stringify({
+    //           username: this.state.signInUsername,
+    //           password: this.state.signInPassword
+    //       })
+    //     })
+    //     .then(response => response.json())
+    //     .then(user => {
+    //         if (user[0].id){
+    //           this.setState({ validUser: true});
+    //           this.props.loadUser(user);
+    //           history.push('NCEADetails');
+    //         } else if (!user.id){
+    //             this.setState({signInMessage: 'Incorrect Username/Password Combination'});
+    //         }
+    //     }).catch(err => console.log(err))
+    //   }
 
     componentDidMount() {
         this.SetLastSubmittedAssessmentBackgroundColor();
     }
 
+    componentWillUnmount(){
+        this.postCreditGoals()
+    }
+
     render(){
         console.log('ncea overview state', this.state);
-        const { lastsubmittedassessment } = this.props.userNCEAProfile;
-        const { activeGraph, level3Credits, creditGoals, lastSubAssBGColour } = this.state;
+        const { lastsubmittedassessment } = this.props.userNCEAProfile; 
+        const { activeGraph, creditGoals, lastSubAssBGColour } = this.state;
         return(
                 <div className='ncea-overview-wrapper'>
                     <h1 className='ncea-overview-heading'>NCEA Overview</h1>
-                    {/* <p className='ncea-overview-nsn'>Your NSN is: {nsn}</p> */}
-                    {activeGraph === 'creditGoals' ?<div className='graph-wrapper'>
-                                                        <StackedBarChart graphTitle='Credit Goals' graphClassName={activeGraph} data={this.InitStackedBarGraphData(level3Credits, creditGoals)}/>
-                                                        <div className = 'credit-goals-input'>
-                                                            
-                                                        </div>
-                                                    </div>:
-                     activeGraph === 'currentYearTotalCredits' ?<PieChart graphTitle="This Year's Total Credits" graphClassName={activeGraph} data={this.InitPieGraphData(level3Credits)}/>:
-                     activeGraph === 'totalCredits' ?<PieChart graphTitle='Total Credits' graphClassName={activeGraph} data={this.InitPieGraphData(this.getCreditTotals())}/>:
-                     <div></div>}
+                    {activeGraph === 'creditGoals' ?
+                    <div className='graph-wrapper credit-goals-wrapper'>
+                        <form className = 'credit-goals-input'>
+                            <h3>Please select your credit goals</h3>
+                            <label className='credit-goal-input-field' htmlFor="excellence-credits-goal-input">Excellence Credits
+                                <input onBlur={(event) => this.setBlankGoalInputToZero(event, 0)} onChange={(event) => this.updateCreditGoals(event, 0)} type="number" name="excellenceCreditsGoalsInput" id="excellence-credits-goal-input" value={creditGoals[0]} />
+                            </label>
+                            <label className='credit-goal-input-field' htmlFor="merit-credits-goal-input">Merit Credits
+                                <input onBlur={(event) => this.setBlankGoalInputToZero(event, 1)} onChange={(event) => this.updateCreditGoals(event, 1)} type="number" name="meritCreditsGoalsInput" id="merit-credits-goal-input" value={creditGoals[1]}/>
+                            </label>
+                            <label className='credit-goal-input-field' htmlFor="achieved-credits-goal-input">Achieved Credits
+                                <input onBlur={(event) => this.setBlankGoalInputToZero(event, 2)} onChange={(event) => this.updateCreditGoals(event, 2)} type="number" name="achievedCreditsGoalsInput" id="achieved-credits-goal-input" value={creditGoals[2]}/>
+                            </label>
+                        </form>
+                        <StackedBarChart graphTitle='Credit Goals' graphClassName={activeGraph} data={this.InitStackedBarGraphData(this.props.userNCEAProfile.credits[0], creditGoals)}/>
+                    </div>:
+                     activeGraph === 'currentYearTotalCredits' ?
+                     <div className='graph-wrapper'>
+                        <PieChart graphTitle="This Year's Total Credits" graphClassName={activeGraph} data={this.InitPieGraphData(this.props.userNCEAProfile.credits[0])}/>
+                     </div>:
+                     activeGraph === 'totalCredits' ?
+                     <div className='graph-wrapper'>
+                        <PieChart graphTitle='Total Credits' graphClassName={activeGraph} data={this.InitPieGraphData(this.getCreditTotals())}/>
+                     </div>:
+                     <React.Fragment></React.Fragment>}
                     <div className='graph-controls'>
                          <button  onClick={() => this.UpdateActiveGraph('creditGoals')} className='ncea-overview-button'>Credit Goals</button>
                          <button  onClick={() => this.UpdateActiveGraph('currentYearTotalCredits')} className='ncea-overview-button'>Current Year Total Credits</button>
                          <button  onClick={() => this.UpdateActiveGraph('totalCredits')} className='ncea-overview-button'>Total Credits</button>
-                         <button graphTitle='Subject Credits' onClick={() => this.UpdateActiveGraph('subjectCredits')} className='ncea-overview-button'>Subject Credits</button>
+                         {/* <button graphTitle='Subject Credits' onClick={() => this.UpdateActiveGraph('subjectCredits')} className='ncea-overview-button'>Subject Credits</button> */}
                     </div>
                     <div className='lastsubass' style={{background: lastSubAssBGColour}}>
                         <h3>Last Submitted Assesment: </h3>
