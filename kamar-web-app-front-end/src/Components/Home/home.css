@@ -238,6 +238,24 @@ a:hover{
     margin-bottom: 8%;
 }
 
+#credit-goals-update-button{
+    width: 80%;
+    padding: 4%;
+    justify-self: center;
+    border-radius: 2em;
+    text-decoration: none;
+    border: none;
+    align-self: center;
+    color: #FFFFFF;
+    background-color: #464646;
+    font-size: 1em;
+}
+
+#credit-goals-update-button:hover{
+    background-color: #b6b6b6;
+}
+
+
 .graph{
     width: 65%;
     justify-self: center;
@@ -282,7 +300,6 @@ a:hover{
     text-align: left;
     padding: 5px;
     padding-left: 20px;
-    margin: 5px;
 }
 
 .lastsubass h3{

@@ -161,6 +161,7 @@ class NceaOverview extends React.Component {
                             <label className='credit-goal-input-field' htmlFor="achieved-credits-goal-input">Achieved Credits
                                 <input onBlur={(event) => this.setBlankGoalInputToZero(event, 2)} onChange={(event) => this.updateCreditGoals(event, 2)} type="number" name="achievedCreditsGoalsInput" id="achieved-credits-goal-input" value={creditGoals[2]}/>
                             </label>
+                            <input onClick={this.postCreditGoals} type='button' id='credit-goals-update-button' value='Update'/>
                         </form>
                         <StackedBarChart graphTitle='Credit Goals' graphClassName={activeGraph} data={this.InitStackedBarGraphData(this.props.userNCEAProfile.credits[0], creditGoals)}/>
                     </div>:

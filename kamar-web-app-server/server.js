@@ -27,8 +27,6 @@ app.get('/', (req, res)=>{
     })
 });
 
-
-
 const UpdateNCEAOverview = (nsn) => {
     db.select('*').from('users_submittedassesments').where('nsn', '=', nsn)
     .then(user => {
