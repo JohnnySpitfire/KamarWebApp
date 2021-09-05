@@ -110,18 +110,44 @@ app.post('/signin', (req, res) => {
       .catch(err => res.status(400).json(err.message))
 })
 
-app.get('/profile/:username', (req, res) =>{
-  
-  const { username } = req.params;
+app.get('/subjectlist', (req, res) => {
+    db.select('*').from('subjects')
+    .then(data => {
+        res.json(data)
+    }).catch(err => res.status(400).json(err))
+})
 
+app.post('/getstandards', (req, res) => {
+    db.select('standards').from('subjects').where({name: req.body.name})
+    .then(data => {
+        res.json(data)
+    }).catch(err => res.status(400).json(err))
+})
+
+app.post('/resourcesbystandard', (req, res) => {
+    console.log(req.body)
+        db.select('*').from('resources').where({'standardNumber' : req.body.standardNumber})
+        .then(data =>{
+                res.json(data)
+            })
+        .catch(err => res.status(400).json(err.message))
+})
+
+// app.post('/postsubjects', (req, res) => {
+//     const fieldsToInsert = req.body.map(subject => 
+//         ({ name: subject.name, title: subject.title, standards: subject.standards })); 
+//         db('subjects').insert(fieldsToInsert)
+//         .catch(err => res.status(500).json(err))
+//         .then(res.status(200).json('success'))
+//         .catch(err => res.status(400).json(err))
+// })
+ 
+app.get('/profile/:username', (req, res) =>{
+  const { username } = req.params;
   db.select('*').from('users').where({username}).then(user =>{
-      if(user.length){
-          res.json(user[0]);
-      } else {
-          res.status(404).json('no such user')
-      }
-  })
-});
+      user.length? res.json(user[0]): res.status(404).json('no such user')
+    })
+})
 
 app.listen(3000, ()=>{
     console.log('I\'m listening! :)');
@@ -129,4 +155,4 @@ app.listen(3000, ()=>{
     //     console.log(hash);
     // });
     //  console.log(bcrypt.compareSync('Ben1', '$2b$10$nBvu/OAV5X4JmZpSvntYW.ELnz7z8vEtQxDiT9xWOu8D3yreG1Tca'));
-});
+})

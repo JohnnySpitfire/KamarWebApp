@@ -7,7 +7,7 @@ const ListItem = (props) => {
 
     return (
             <React.Fragment>
-                <NavLink to={props.link} key={props.key} className={props.classNames}>{props.item}</NavLink>
+                <NavLink to={props.link} className={props.classNames}>{props.item}</NavLink>
             </React.Fragment>
            );
 }

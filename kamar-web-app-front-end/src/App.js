@@ -42,6 +42,14 @@ class App extends Component {
       console.log(this.state.userNCEAProfile.creditGoals)
   }
 
+  // postSubjects = () => {
+  //   fetch('http://localhost:3000/postsubjects', {
+  //     method: 'POST',
+  //     headers: {'Content-Type': 'application/json'},
+  //     body: JSON.stringify(subjectList)
+  // })
+  // }
+
   loadUser = (data) => {
     console.log(data)
     const { username, name, email, subjects, level } = data[0];
@@ -68,19 +76,20 @@ class App extends Component {
     console.log('app state', this.state)
     return (
     <div className="App">
+      {/* <button onClick={this.postSubjects}>postsubjects</button> */}
       <Router>
-            <Switch>
-              <Route path='/Home'>
-              <Home fullName = {this.state.user.name} updateCreditGoals={this.updateCreditGoals} userNCEAProfile={this.state.userNCEAProfile} isSignedIn={this.state.isSignedIn}/>
-              </Route>
-              <Route path='/SubjectResources'>
-                <SubjectResources/>
-              </Route>
-              <Route path='/SignIn'>
-                <SignIn loadUser={this.loadUser}/>
-              </Route>    
-            </Switch>
-          </Router>
+        <Switch>
+          <Route path='/Home'>
+           <Home fullName = {this.state.user.name} updateCreditGoals={this.updateCreditGoals} userNCEAProfile={this.state.userNCEAProfile} isSignedIn={this.state.isSignedIn}/>
+          </Route>
+          <Route path='/SubjectResources'>
+            <SubjectResources userSubjects={this.state.user.subjects} userLevel={this.state.user.level}/>
+          </Route>
+          <Route path='/SignIn'>
+            <SignIn loadUser={this.loadUser}/>
+          </Route>    
+        </Switch>
+      </Router>
     </div>
     );
   }

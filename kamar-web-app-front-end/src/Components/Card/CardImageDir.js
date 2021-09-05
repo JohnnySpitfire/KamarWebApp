@@ -17,25 +17,45 @@ import {ReactComponent as DigitalTechnologiesCardImage} from '../img/card/digita
 import {ReactComponent as DesignVisualCommunicationCardImage} from '../img/card/design-visual-communication.svg';
 import {ReactComponent as HardMaterialsCardImage} from '../img/card/hard-materials.svg';
 
-const ImageDir = [
-    EnglishCardImage,
-    ArtHistoryCardImage,
-    DramaCardImage,
-    L1MathsCardImage,
-    CalculusCardImage,
-    StatisticsCardImage,
-    ChemistryCardImage,
-    BiologyCardImage,
-    PhysicsCardImage,
-    ClassicsCardImage,
-    HistoryCardImage,
-    GeographyCardImage,
-    AgBusinessCardImage,
-    EconomicsCardImage,
-    BusinessStudiesCardImage,
-    DigitalTechnologiesCardImage,
-    DesignVisualCommunicationCardImage,
-    HardMaterialsCardImage
-];
+const ImageDir = [[
+   EnglishCardImage,
+   ArtHistoryCardImage,
+   DramaCardImage,
+   L1MathsCardImage,
+   CalculusCardImage,
+   StatisticsCardImage,
+   ChemistryCardImage,
+   BiologyCardImage,
+   PhysicsCardImage,
+   ClassicsCardImage,
+   HistoryCardImage,
+   GeographyCardImage,
+   AgBusinessCardImage,
+   EconomicsCardImage,
+   BusinessStudiesCardImage,
+   DigitalTechnologiesCardImage,
+   DesignVisualCommunicationCardImage,
+   HardMaterialsCardImage,  
+  ],
+  ['english',
+  'art-history',
+  'drama',
+  'l1-maths',
+  'calculus',
+  'statistics',
+  'chemistry',
+  'biology',
+  'physics',
+  'classics',
+  'history',
+  'geography',
+  'agbusiness',
+  'economics',
+  'business-studies',
+  'digital-technologies',
+  'design-visual-communication',
+  'hard-materials']];
 
-export default ImageDir;
+
+
+export default ImageDir

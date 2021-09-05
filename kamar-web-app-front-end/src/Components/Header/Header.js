@@ -9,7 +9,6 @@ const Header = () => {
 
     const headerListItems = [
         {
-          key: 0,
           classnames:'',
           item:'Home',
           link: '/Home'
@@ -25,13 +24,11 @@ const Header = () => {
         //     link: './index.html'  
         // },
         {
-            key: 1,
             classNames:'',
             item:'Subject Resources',
             link: '/SubjectResources' 
         },
         {
-            key: 2,
             classNames:'',
             item:'Contact Us',
             link: '/Contact'  

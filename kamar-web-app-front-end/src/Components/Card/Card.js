@@ -1,9 +1,10 @@
 import React from 'react';
 import './card.css';
-import ImageDir from './CardImageDir';
+import CardImageDir from './CardImageDir'
 
 const Card = (props) => {
-    const Image = ImageDir[props.index];
+    const imageIndex = CardImageDir[1].findIndex(name => {return name === props.name})
+    const Image = CardImageDir[0][imageIndex]
     return(
         <div className="card">
             <Image className='card-image'/>

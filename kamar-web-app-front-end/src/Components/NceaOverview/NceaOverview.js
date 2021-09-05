@@ -112,26 +112,26 @@ class NceaOverview extends React.Component {
         this.props.updateCreditGoals(this.state.creditGoals)
     }
 
-    // OnNceaDetailsClick = (history) => {
-    //     fetch('http://localhost:3000/nceadetails', {
-    //         method: 'POST',
-    //         headers: {'Content-Type': 'application/json'},
-    //         body: JSON.stringify({
-    //           username: this.state.signInUsername,
-    //           password: this.state.signInPassword
-    //       })
-    //     })
-    //     .then(response => response.json())
-    //     .then(user => {
-    //         if (user[0].id){
-    //           this.setState({ validUser: true});
-    //           this.props.loadUser(user);
-    //           history.push('NCEADetails');
-    //         } else if (!user.id){
-    //             this.setState({signInMessage: 'Incorrect Username/Password Combination'});
-    //         }
-    //     }).catch(err => console.log(err))
-    //   }
+    OnNceaDetailsClick = (history) => {
+        fetch('http://localhost:3000/nceadetails', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+              username: this.state.signInUsername,
+              password: this.state.signInPassword
+          })
+        })
+        .then(response => response.json())
+        .then(user => {
+            if (user[0].id){
+              this.setState({ validUser: true});
+              this.props.loadUser(user);
+              history.push('NCEADetails');
+            } else if (!user.id){
+                this.setState({signInMessage: 'Incorrect Username/Password Combination'});
+            }
+        }).catch(err => console.log(err))
+      }
 
     componentDidMount() {
         this.SetLastSubmittedAssessmentBackgroundColor();

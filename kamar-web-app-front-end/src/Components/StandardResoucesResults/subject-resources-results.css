@@ -1,0 +1,31 @@
+.resource-results-wrapper{
+    display: grid;
+    width: 60%;
+    margin: auto;
+    margin-top: 10px;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    grid-gap: 15px;
+    justify-content: center;
+}
+
+.title-wrapper{grid-area: title;}
+.resource-wrapper{grid-area: resource;}
+.standard-wrapper{grid-area: standard;}
+
+.resource-card-wrapper{
+    display: grid;
+    grid-template-areas: 
+    'title title standard'     
+    'resource resource resource';
+    background-color: #F3F3F3;
+    grid-template-columns: 3fr 1fr;
+    width: 100%;
+    height: 100%;
+}
+.resource-wrapper{
+    width: 100%;
+}
+

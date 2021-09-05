@@ -7,7 +7,7 @@ const history = useHistory()
 const clickHandler = () => {
     props.OnNceaDetailsClick(history)
 }
-
+    
     return ( 
         <button onClick={clickHandler} id="ncea-details-button">NCEA Details</button>
     )

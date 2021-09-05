@@ -7,7 +7,6 @@ const history = useHistory()
 const clickHandler = () => {
     props.onSubmitSignIn(history)
 }
-
     return ( 
         <input onClick={clickHandler} id="submit-button" type="button" value="Log In"/>
     )

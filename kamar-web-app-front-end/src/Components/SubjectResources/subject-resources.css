@@ -223,6 +223,11 @@ a:hover{
 
 .card-wrapper-resources{
     display: grid;
+    grid-template-columns: auto;
+}
+
+.card-resources{
+    display: grid;
     grid-template-columns: auto auto auto;
     grid-gap: 25px;
     margin: 15px;
