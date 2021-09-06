@@ -6,8 +6,8 @@ const StandardsList = (propsParent) => {
     return (
      propsParent.standards.map((levelStandards, i) => {
         return (
-            <div>
-                <h1>Level {-i + 3}</h1>
+            <div className='standard-card-level-wrapper'>
+                <h2>Level {-i + 3}</h2>
                 <LevelStandards setSelectedStandard={propsParent.setSelectedStandard} userLevel={propsParent.userLevel} subjectName={propsParent.subjectName} levelStandards={levelStandards}/>
             </div>
             )

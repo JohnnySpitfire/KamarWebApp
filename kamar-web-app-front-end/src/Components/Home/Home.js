@@ -11,7 +11,7 @@ import {ReactComponent as SubjectResourcesImage} from '../img/card/subject-resou
 const Home = (props) => {
 return(
     <React.Fragment>
-          <Header/>
+          <Header isSignedIn={props.isSignedIn} signOut={props.signOut}/>
             <div className={props.isSignedIn? 'main-container-signedin' : 'main-container-signedout'}>
                 {props.isSignedIn?
                     <React.Fragment>

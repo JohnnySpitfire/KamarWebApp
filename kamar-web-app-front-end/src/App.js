@@ -11,7 +11,7 @@ import {
 } from "react-router-dom";
 
 class App extends Component {
-
+  
   constructor(props) {
     super(props);
       this.state = {
@@ -72,25 +72,52 @@ class App extends Component {
                   isSignedIn: true
   })
 }
+
+clearState = () => {
+  this.setState({
+      isSignedIn: false,
+      user: {
+        id: '',
+        username: '',
+        name: '',
+        email: '',
+        nsn: '',
+        subjects: [],
+        level: 0,
+      },
+      userNCEAProfile: {
+        nsn: '',
+        credits: [[0, 0, 0, 0],
+                  [0, 0, 0, 0],
+                  [0, 0, 0, 0]],
+        lastsubmittedassessment : [],
+        creditGoals: [0, 0, 0, 0]
+    }
+  })
+}
+
+signOut = () => {
+    this.clearState();
+}
+
   render () {
-    console.log('app state', this.state)
     return (
-    <div className="App">
-      {/* <button onClick={this.postSubjects}>postsubjects</button> */}
-      <Router>
-        <Switch>
-          <Route path='/Home'>
-           <Home fullName = {this.state.user.name} updateCreditGoals={this.updateCreditGoals} userNCEAProfile={this.state.userNCEAProfile} isSignedIn={this.state.isSignedIn}/>
-          </Route>
-          <Route path='/SubjectResources'>
-            <SubjectResources userSubjects={this.state.user.subjects} userLevel={this.state.user.level}/>
-          </Route>
-          <Route path='/SignIn'>
-            <SignIn loadUser={this.loadUser}/>
-          </Route>    
-        </Switch>
-      </Router>
-    </div>
+      <div className="App">
+        {/* <button onClick={this.postSubjects}>postsubjects</button> */}
+        <Router>
+          <Switch>
+            <Route path='/Home'>
+            <Home signOut={this.signOut} fullName = {this.state.user.name} updateCreditGoals={this.updateCreditGoals} userNCEAProfile={this.state.userNCEAProfile} isSignedIn={this.state.isSignedIn}/>
+            </Route>
+            <Route path='/SubjectResources'>
+              <SubjectResources signOut={this.signOut} userSubjects={this.state.user.subjects} userLevel={this.state.user.level} isSignedIn={this.state.isSignedIn}/>
+            </Route>
+            <Route path='/SignIn'>
+              <SignIn loadUser={this.loadUser}/>
+            </Route>    
+          </Switch>
+        </Router>
+      </div>
     );
   }
 }

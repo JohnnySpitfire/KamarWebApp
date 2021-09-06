@@ -24,7 +24,6 @@ class StandardsSelection extends React.Component{
         console.log('aaaaa', this.state)
         return(
             <React.Fragment>
-                {/* <div className='resource-card-wrapper'> */}
                     <h1>{this.props.subjectName.charAt(0).toUpperCase() + this.props.subjectName.slice(1)}</h1>
                     <Route exact path={`/SubjectResources/${this.props.userLevel}/${this.props.subjectName}`}>
                         <div className='standard-selection-wrapper'>
@@ -34,7 +33,6 @@ class StandardsSelection extends React.Component{
                     <Route path={`/SubjectResources/${this.props.userLevel}/${this.props.subjectName}/${this.state.selectedStandardNumber}`}>
                         <StandardResoucesResults standardNumber={this.state.selectedStandardNumber}/>
                     </Route>
-                {/* </div> */}
             </React.Fragment>
         )
     }

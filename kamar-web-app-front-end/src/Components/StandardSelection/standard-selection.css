@@ -2,11 +2,23 @@
     display: grid;
     width: 60%;
     margin: auto;
-    margin-top: 10px;
-    justify-items: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
     align-items: center;
     grid-template-columns: auto;
     grid-template-rows: auto;
     grid-gap: 15px;
-    justify-content: center;
+}
+
+.standard-card-level-wrapper{
+    display: grid;
+    grid-gap: 15px;
+}
+
+.standard-card{
+    display: flex;
+    background-color: #F3F3F3;
+    text-align: center;
+    padding: 1%;
+    justify-content: space-between;
 }

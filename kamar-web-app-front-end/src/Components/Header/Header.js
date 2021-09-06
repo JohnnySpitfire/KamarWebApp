@@ -5,7 +5,7 @@ import {
     Link,
   } from "react-router-dom";
 
-const Header = () => {
+const Header = (props) => {
 
     const headerListItems = [
         {
@@ -13,16 +13,6 @@ const Header = () => {
           item:'Home',
           link: '/Home'
         },
-        // {
-        //     classNames:'unavailable',
-        //     item:'NCEA Details',
-        //     link: './index.html'  
-        // },
-        // {
-        //     classNames:'unavailable',
-        //     item:'Timetable',
-        //     link: './index.html'  
-        // },
         {
             classNames:'',
             item:'Subject Resources',
@@ -35,7 +25,7 @@ const Header = () => {
         },
       ]
 
-    const List = headerListItems.map((props, i) => {
+    const HeaderList = headerListItems.map((props, i) => {
         return (<ListItem key={headerListItems[i].key}
                           classNames={headerListItems[i].classNames}
                           item={headerListItems[i].item} 
@@ -47,11 +37,13 @@ const Header = () => {
                 <img src="" alt="logo"></img>
             </div>
                 <ul className="header-links">
-                  {List}
+                  {HeaderList}
                 </ul>
                 <Link to='/SignIn' className='sign-in-header'>
-                  <button className='sign-in-button'>
-                    Sign In
+                  <button onClick={props.signOut} className='sign-in-button'>
+                    {props.isSignedIn?
+                    'Sign Out':
+                    'Sign In'}
                   </button>
                 </Link>
         </div>

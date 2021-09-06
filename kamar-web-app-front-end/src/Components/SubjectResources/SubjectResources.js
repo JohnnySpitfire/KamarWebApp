@@ -68,10 +68,9 @@ class SubjectResources extends React.Component {
     } 
     
     render() {
-        console.log('subjectresources', this.state)
         return (
             <React.Fragment>
-                <Header/>
+                <Header isSignedIn={this.props.isSignedIn} signOut={this.props.signOut}/>
                 <Route exact path="/SubjectResources">
                     <div className='main-container-resources'>
                         <SearchBar/>
