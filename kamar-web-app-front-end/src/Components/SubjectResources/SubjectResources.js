@@ -49,10 +49,15 @@ class SubjectResources extends React.Component {
         })
         .then(response => response.json())
         .then(subjectStandards => {
-            this.props.userLevel === 0?
-             this.setState({ subjectStandards: subjectStandards[0].standards})
-            :this.setState({ subjectStandards: [subjectStandards[0].standards[arrayPos]]})
-        }).catch(err => console.log(err))
+           const standardsArray = [subjectStandards.level3, subjectStandards.level2, subjectStandards.level1]
+           console.log('arraystandards', standardsArray)
+            if(this.props.userLevel === 0){
+             this.setState({ subjectStandards: standardsArray})
+         } else { 
+             this.setState({ subjectStandards: [standardsArray[arrayPos]]})
+         }
+
+        }).catch(err => console.log(err))   
         if (this.state.subjectStandards === undefined){
             this.setState({subjectStandards: []})
         }

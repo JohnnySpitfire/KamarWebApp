@@ -120,7 +120,8 @@ app.get('/subjectlist', (req, res) => {
 app.post('/getstandards', (req, res) => {
     db.select('standards').from('subjects').where({name: req.body.name})
     .then(data => {
-        res.json(data)
+        const standardsJSON = JSON.parse(data[0].standards);
+        res.json(standardsJSON)
     }).catch(err => res.status(400).json(err))
 })
 

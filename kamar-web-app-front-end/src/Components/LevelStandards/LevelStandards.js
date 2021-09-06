@@ -7,7 +7,7 @@ const LevelStandards = (propsParent) => {
         return(
         propsParent.levelStandards.map((props, i) => {
             return (
-                <StandardCard setSelectedStandard={propsParent.setSelectedStandard} standardNumber={props[1]} title={props[0]}/>
+                <StandardCard setSelectedStandard={propsParent.setSelectedStandard} standardNumber={props[0]} title={props[1]}/>
             )
         })
     )

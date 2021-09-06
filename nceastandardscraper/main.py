@@ -23,7 +23,7 @@ subjectList = [{'url': 'English', 'name': 'english'},
                {'url': 'Digital+Technologies', 'name': 'digital-technologies'},
                {'url': 'Design+and+Visual+Communication', 'name': 'design-visual-communication'},
                {'url': 'Technology', 'name': 'technology'}]
-levels = ['01', '02', '03']
+levels = ['03', '02', '01']
 
 allStandards = []
 for subject in subjectList:
@@ -37,7 +37,7 @@ for subject in subjectList:
         tablesResult = soup.findAll('tr', class_='dataHighlight')
         levelStandards = []
         for standard in tablesResult:
-            data = (standard.findAll('td', limit=3))
+            data = (standard.findAll('td'))
             standard = []
             for tag in data:
                 text = tag.get_text()
