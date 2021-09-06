@@ -102,7 +102,7 @@ app.post('/signin', (req, res) => {
                     console.log(userncea);
                     res.json([user[0], userncea[0]])
                 })
-             .catch(err => res.status(404).json(err.message))
+             .catch(err => res.status(404).json(err.message))    
             })
         } 
          res.status(400).json('wrong credentials')

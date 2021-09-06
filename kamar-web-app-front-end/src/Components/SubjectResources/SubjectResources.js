@@ -63,7 +63,7 @@ class SubjectResources extends React.Component {
     } 
     
     render() {
-        console.log(this.state)
+        console.log('subjectresources', this.state)
         return (
             <React.Fragment>
                 <Header/>

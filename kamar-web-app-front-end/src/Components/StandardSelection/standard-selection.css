@@ -1,0 +1,12 @@
+.standard-selection-wrapper{
+    display: grid;
+    width: 60%;
+    margin: auto;
+    margin-top: 10px;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    grid-gap: 15px;
+    justify-content: center;
+}
