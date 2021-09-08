@@ -127,7 +127,7 @@ app.post('/getstandards', (req, res) => {
 
 app.post('/resourcesbystandard', (req, res) => {
     console.log(req.body)
-        db.select('*').from('resources').where({'standardNumber' : req.body.standardNumber})
+        db.select('*').from('resources').where({'standardnumber' : req.body.standardNumber})
         .then(data =>{
                 res.json(data)
             })
