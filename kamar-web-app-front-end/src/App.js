@@ -4,6 +4,7 @@ import './App.css';
 import Home from './Components/Home/Home';
 import SubjectResources from './Components/SubjectResources/SubjectResources';
 import SignIn from './Components/SignIn/SignIn';
+import subjectList from './SubjectList'
 import {
   BrowserRouter as Router,
   Switch,
@@ -42,13 +43,13 @@ class App extends Component {
       console.log(this.state.userNCEAProfile.creditGoals)
   }
 
-  // postSubjects = () => {
-  //   fetch('http://localhost:3000/postsubjects', {
-  //     method: 'POST',
-  //     headers: {'Content-Type': 'application/json'},
-  //     body: JSON.stringify(subjectList)
-  // })
-  // }
+  postSubjects = () => {
+    fetch('http://localhost:3000/postsubjects', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(subjectList)
+    })
+  }
 
   loadUser = (data) => {
     console.log(data)
@@ -103,6 +104,7 @@ signOut = () => {
   render () {
     return (
       <div className="App">
+        {/* DEV BUTTON DO NOT PRESS */}
         {/* <button onClick={this.postSubjects}>postsubjects</button> */}
         <Router>
           <Switch>

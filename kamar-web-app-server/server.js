@@ -134,14 +134,14 @@ app.post('/resourcesbystandard', (req, res) => {
         .catch(err => res.status(400).json(err.message))
 })
 
-// app.post('/postsubjects', (req, res) => {
-//     const fieldsToInsert = req.body.map(subject => 
-//         ({ name: subject.name, title: subject.title, standards: subject.standards })); 
-//         db('subjects').insert(fieldsToInsert)
-//         .catch(err => res.status(500).json(err))
-//         .then(res.status(200).json('success'))
-//         .catch(err => res.status(400).json(err))
-// })
+app.post('/postsubjects', (req, res) => {
+    const fieldsToInsert = req.body.map(subject => 
+        ({ name: subject.name, title: subject.title, standards: subject.standards })); 
+        db('subjects').insert(fieldsToInsert)
+        .catch(err => res.status(500).json(err))
+        .then(res.status(200).json('success'))
+        .catch(err => res.status(400).json(err))
+})
  
 app.get('/profile/:username', (req, res) =>{
   const { username } = req.params;

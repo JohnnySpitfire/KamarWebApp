@@ -84,4 +84,5 @@ export const subjectList = [
         title:'Hard Materials',
         standards: [],
     },
-]   
+]
+export default subjectList

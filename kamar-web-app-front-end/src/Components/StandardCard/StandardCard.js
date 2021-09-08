@@ -14,7 +14,7 @@ const StandardCard = (props) => {
             </div>
             <div className='standard-card-number'>
                 <a target='_blank' rel='noreferrer' href={`https://www.nzqa.govt.nz/ncea/assessment/view-detailed.do?standardNumber=${props.standardNumber}`}>
-                    <p>{props.standardNumber}</p>
+                    <p>AS{props.standardNumber}</p>
                 </a>
             </div>
         </div>
