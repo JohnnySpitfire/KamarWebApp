@@ -152,8 +152,10 @@ app.get('/profile/:username', (req, res) =>{
 
 app.listen(3000, ()=>{
     console.log('I\'m listening! :)');
-    // bcrypt.hash("Ben1", 10, function(err, hash) {
-    //     console.log(hash);
-    // });
-    //  console.log(bcrypt.compareSync('Ben1', '$2b$10$nBvu/OAV5X4JmZpSvntYW.ELnz7z8vEtQxDiT9xWOu8D3yreG1Tca'));
+    //update useroverview for all users -- not usable for production
+    db.select('nsn').from('users').then(res=>{
+        res.forEach(user =>{
+            UpdateNCEAOverview(user.nsn);
+        })
+    })
 })

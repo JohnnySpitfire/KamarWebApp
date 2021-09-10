@@ -80,6 +80,7 @@ for data in level3:
     for tag in titleTags:
         title = tag.find('b').get_text()
         comment = tag.get_text().replace(title, '')
+        comment = comment.replace("'", '')
     valueRaw = data.find('td', class_='result-value').get_text()
     valueSerialised = valueRaw.split()[-1][0]
     if 'Not' in valueRaw:
@@ -97,6 +98,7 @@ for data in level2:
     for tag in titleTags:
         title = tag.find('b').get_text()
         comment = tag.get_text().replace(title, '')
+        comment = comment.replace("'", '')
     valueRaw = data.find('td', class_='result-value').get_text()
     valueSerialised = valueRaw.split()[-1][0]
     if 'Not' in valueRaw:
@@ -113,6 +115,7 @@ for data in level1:
     for tag in titleTags:
         title = tag.find('b').get_text()
         comment = tag.get_text().replace(title, '')
+        comment = comment.replace("'", '')
     valueRaw = data.find('td', class_='result-value').get_text()
     valueSerialised = valueRaw.split()[-1][0]
     if 'Not' in valueRaw:
@@ -147,7 +150,7 @@ if programFunc.lower() == 'i':
     #
     cur.execute(f"INSERT INTO users (username, name, email, nsn, subjects, level) "
                 f"VALUES ('{usernameInput}','{fullNameInput}','{email}','{nsnInput}',"
-                f"ARRAY['Calculus','Biology','DigitalTechnologies','Physics','Chemistry'],"
+                f"ARRAY['calculus','biology','digital-technologies','physics','chemistry'],"
                 f"{levelInput})")
 
     cur.execute(f"INSERT INTO users_nceaoverview (nsn) VALUES ('{nsnInput}')")

@@ -53,7 +53,7 @@ for subject in subjectList:
         subjectStandards.update({f"level{level[1]}": levelStandards})
         print('level', level[1], 'finished!')
     allStandards.append(subjectStandards)
-    print(subject['url'], 'completed!')
+    print(subject['name'], 'completed!')
     subjectStandardsJSON = json.dumps(subjectStandards)
     cur.execute(f"UPDATE subjects SET standards = '{subjectStandardsJSON}' WHERE name = '{subject['name']}'")
 

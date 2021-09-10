@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/ScrapeNCEAStandards.iml" filepath="$PROJECT_DIR$/.idea/ScrapeNCEAStandards.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/nceastandardscraper.iml" filepath="$PROJECT_DIR$/.idea/nceastandardscraper.iml" />
     </modules>
   </component>
 </project>

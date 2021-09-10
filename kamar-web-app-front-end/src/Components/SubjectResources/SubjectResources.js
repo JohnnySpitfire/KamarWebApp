@@ -23,7 +23,7 @@ class SubjectResources extends React.Component {
     }
 
     setSubject = (subjectName) =>{
-        this.setState({ subjectName})
+        this.setState({subjectName})
         this.getStandards(subjectName)
     }
     
@@ -34,7 +34,7 @@ class SubjectResources extends React.Component {
         })
         .then(response => response.json())
         .then(subjectList => {
-              this.setState({ subjectList });
+            this.setState({ subjectList });
         }).catch(err => console.log(err))
     }
 

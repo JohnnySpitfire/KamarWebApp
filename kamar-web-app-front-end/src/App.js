@@ -5,6 +5,7 @@ import Home from './Components/Home/Home';
 import SubjectResources from './Components/SubjectResources/SubjectResources';
 import SignIn from './Components/SignIn/SignIn';
 import subjectList from './SubjectList'
+import Contact from './Components/Contact/Contact'
 import {
   BrowserRouter as Router,
   Switch,
@@ -55,7 +56,8 @@ class App extends Component {
     console.log(data)
     const { username, name, email, subjects, level } = data[0];
     const { credits, lastsubmittedassessment, creditgoals} = data[1];
-    this.setState({user:{
+    this.setState({
+                  user:{
                           id: data[0].id,
                           username,
                           name,
@@ -63,7 +65,7 @@ class App extends Component {
                           nsn: data[0].nsn,
                           subjects,
                           level,
-                        },
+                       },
                   userNCEAProfile:{ 
                           nsn: data[1].nsn,
                           credits: credits,
@@ -116,6 +118,9 @@ signOut = () => {
             </Route>
             <Route path='/SignIn'>
               <SignIn loadUser={this.loadUser}/>
+            </Route>
+            <Route path='/Contact'>
+              <Contact/>
             </Route>    
           </Switch>
         </Router>

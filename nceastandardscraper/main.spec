@@ -5,7 +5,7 @@ block_cipher = None
 
 
 a = Analysis(['main.py'],
-             pathex=['C:\\Users\\benan\\PycharmProjects\\ScrapeNCEAStandards'],
+             pathex=['C:\\Users\\benan\\PycharmProjects\\nceastandardscraper'],
              binaries=[],
              datas=[],
              hiddenimports=[],

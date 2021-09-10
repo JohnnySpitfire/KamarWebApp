@@ -6,6 +6,8 @@ import {
 
 const SubjectCards = (props) => {
     
+console.log('subjectcards', props);
+
     const CardList = (propsParent) => {
         const {subjectList} = propsParent;
         return (
@@ -17,18 +19,20 @@ const SubjectCards = (props) => {
                             title={subjectList[i].title} 
                         />
                     </Link>
-               )
-         })
-    )
+                )
+            })
+        )
     }
     const UserCardList = (propsParent) => {
-        const {subjectList} = propsParent;
+        console.log('propsParent', props)   
+        const { subjectList } = propsParent;
 
         const userCardList = subjectList.filter((subject)=>{
             return propsParent.userSubjects.includes(subject.name)
         })
         return (
             userCardList.map((props, i) => {
+                console.log(userCardList)
             return(
                     <Link onClick={() => propsParent.setSubject(userCardList[i].name)} to={`/SubjectResources/${propsParent.userLevel}/${userCardList[i].name}`}>
                         <Card
@@ -36,9 +40,9 @@ const SubjectCards = (props) => {
                             title={userCardList[i].title} 
                         />
                     </Link>
-            )
-        })
-    )
+                )
+            })
+        )
     }
         return (
             <div className='card-wrapper-resources'>    

@@ -1,4 +1,4 @@
-#!c:\users\benan\pycharmprojects\scrapenceastandards\venv\scripts\python.exe
+#!c:\users\benan\pycharmprojects\nceastandardscraper\venv\scripts\python.exe
 # EASY-INSTALL-ENTRY-SCRIPT: 'future==0.18.2','console_scripts','pasteurize'
 import re
 import sys
