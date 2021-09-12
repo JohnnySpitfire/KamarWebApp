@@ -120,7 +120,7 @@ signOut = () => {
               <SignIn loadUser={this.loadUser}/>
             </Route>
             <Route path='/Contact'>
-              <Contact/>
+              <Contact isSignedIn={this.state.isSignedIn}/>
             </Route>    
           </Switch>
         </Router>
