@@ -1,4 +1,5 @@
 import React from 'react';
+import Header from '../Header/Header';
 import { withRouter } from 'react-router';
 import Header from '../Header/Header';
 import './contact.css'
