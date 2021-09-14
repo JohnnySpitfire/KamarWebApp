@@ -15,11 +15,12 @@ if programFunc.lower() == 'i':
     fullNameInput = input('please enter your full name: ')
     nsnInput = input('please enter your nsn: ')
     levelInput = input('please enter your NCEA level as a number: ')
-    passwordInput = getpass.getpass()
     email = f'{usernameInput}@trinityschools.nz'
     levelInput = int(levelInput)
     if len(nsnInput) == 10:
         nsnInput = nsnInput[1:]
+    passwordInput = getpass.getpass()
+
 
 if programFunc.lower() == 'u':
     usernameInput = input('please enter your student id: ')
@@ -30,12 +31,14 @@ driver = webdriver.Firefox(executable_path='./geckodriver.exe')
 wait = WebDriverWait(driver, 10)
 
 driver.get("https://portal.rathkeale.school.nz")
+
 username = driver.find_element_by_id('login-username')
 password = driver.find_element_by_id('login-password')
 username.send_keys(usernameInput)
 password.send_keys(passwordInput)
 username.submit()
 password.submit()
+
 
 resultsButton = wait.until(EC.element_to_be_clickable((By.ID, "nav2")))
 resultsButton.click()
@@ -79,6 +82,7 @@ for data in level3:
     titleTags = data.findAll('td', class_='result_title')
     for tag in titleTags:
         title = tag.find('b').get_text()
+        title = title.replace("'", '')
         comment = tag.get_text().replace(title, '')
         comment = comment.replace("'", '')
     valueRaw = data.find('td', class_='result-value').get_text()
@@ -97,6 +101,7 @@ for data in level2:
     titleTags = data.findAll('td', class_='result_title')
     for tag in titleTags:
         title = tag.find('b').get_text()
+        title = title.replace("'", '')
         comment = tag.get_text().replace(title, '')
         comment = comment.replace("'", '')
     valueRaw = data.find('td', class_='result-value').get_text()
@@ -114,6 +119,7 @@ for data in level1:
     titleTags = data.findAll('td', class_='result_title')
     for tag in titleTags:
         title = tag.find('b').get_text()
+        title = title.replace("'", '')
         comment = tag.get_text().replace(title, '')
         comment = comment.replace("'", '')
     valueRaw = data.find('td', class_='result-value').get_text()
@@ -133,8 +139,7 @@ DataRawJSON = json.dumps(DataRawJsonArray)
 DataSerialisedJSON = json.dumps(DataSerialisedJsonArray)
 
 conn = psycopg2.connect("dbname=kamar_web_app user=postgres password=l1Thyrus")
-#
-# # Open a cursor to perform database operations
+
 cur = conn.cursor()
 if programFunc.lower() == 'i':
     password = fullNameInput.split(' ')[0] + '1'

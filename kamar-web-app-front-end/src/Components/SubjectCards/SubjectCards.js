@@ -45,8 +45,13 @@ console.log('subjectcards', props);
         )
     }
         return (
-            <div className='card-wrapper-resources'>    
-                    {props.userLevel !== 0?
+            <React.Fragment>
+                {props.isSearching?
+                <div className='card-resources'>    
+                    <CardList subjectList={props.subjectList} setSubject={props.setSubject} userLevel={props.userLevel}/>
+                </div>:
+                <div className='card-wrapper-resources'>    
+                {props.userLevel !== 0?
                     <div className='card-resources'>
                         <UserCardList subjectList={props.subjectList} setSubject={props.setSubject} userLevel={props.userLevel} userSubjects={props.userSubjects}/>
                     </div>:
@@ -54,7 +59,8 @@ console.log('subjectcards', props);
                     <div className='card-resources'>
                         <CardList subjectList={props.subjectList} setSubject={props.setSubject} userLevel={props.userLevel}/>
                     </div>
-            </div>
+                </div>}
+            </React.Fragment>
         );  
 }
 export default SubjectCards;    

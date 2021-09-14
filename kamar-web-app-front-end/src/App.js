@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
 import Home from './Components/Home/Home';
@@ -56,7 +56,8 @@ class App extends Component {
     console.log(data)
     const { username, name, email, subjects, level } = data[0];
     const { credits, lastsubmittedassessment, creditgoals} = data[1];
-    this.setState({
+    this.setState({                 
+                  isSignedIn: true,
                   user:{
                           id: data[0].id,
                           username,
@@ -71,8 +72,7 @@ class App extends Component {
                           credits: credits,
                           creditGoals: creditgoals,
                           lastsubmittedassessment ,
-                                  }, 
-                  isSignedIn: true
+                                  }
   })
 }
 
@@ -120,7 +120,7 @@ signOut = () => {
               <SignIn loadUser={this.loadUser}/>
             </Route>
             <Route path='/Contact'>
-              <Contact/>
+              <Contact signOut={this.state.signOut} isSignedIn={this.state.isSignedIn}/>
             </Route>    
           </Switch>
         </Router>

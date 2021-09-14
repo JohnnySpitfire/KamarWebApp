@@ -18,7 +18,10 @@ class SubjectResources extends React.Component {
         this.state = {
             subjectName: '',
             subjectList: [],
-            subjectStandards: []
+            filteredSubjectList: [],
+            subjectStandards: [],
+            searchText: '',
+            isSearching: false
         }
     }
 
@@ -34,7 +37,7 @@ class SubjectResources extends React.Component {
         })
         .then(response => response.json())
         .then(subjectList => {
-            this.setState({ subjectList });
+            this.setState({ subjectList, filteredSubjectList: subjectList });
         }).catch(err => console.log(err))
     }
 
@@ -62,6 +65,21 @@ class SubjectResources extends React.Component {
             this.setState({subjectStandards: []})
         }
     }
+    
+    getSearchText = (searchText, isSearching) => {
+        this.setState({ searchText });
+        this.setState({ isSearching })
+        const currentSubjectList = this.state.subjectList;
+        const newSubjectList = currentSubjectList.filter((subject) => {
+            const subjectTitleLower = subject.title.toLowerCase()
+            return subjectTitleLower.includes(searchText.toLowerCase());
+        })
+        if(isSearching){
+            this.setState({filteredSubjectList: newSubjectList})
+        } else if (!isSearching){
+            this.setState({filteredSubjectList: this.state.subjectList})
+        } 
+    }
 
     componentDidMount (){
         this.getSubjectList()
@@ -73,8 +91,8 @@ class SubjectResources extends React.Component {
                 <Header isSignedIn={this.props.isSignedIn} signOut={this.props.signOut}/>
                 <Route exact path="/SubjectResources">
                     <div className='main-container-resources'>
-                        <SearchBar/>
-                        <SubjectCards subjectList={this.state.subjectList} setSubject={this.setSubject} userSubjects={this.props.userSubjects} userLevel={this.props.userLevel}/>
+                        <SearchBar getSearchText={this.getSearchText}/>
+                        <SubjectCards isSearching = {this.state.isSearching} searchText={this.state.searchText} subjectList={this.state.filteredSubjectList} setSubject={this.setSubject} userSubjects={this.props.userSubjects} userLevel={this.props.userLevel}/>
                     </div>
                 </Route>
                 <Route path={`/SubjectResources/${this.props.userLevel}/${this.state.subjectName}`}>

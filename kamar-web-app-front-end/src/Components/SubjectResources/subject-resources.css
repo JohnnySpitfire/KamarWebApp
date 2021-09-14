@@ -128,6 +128,7 @@ a:hover{
 .search-area{
     display: flex;
     justify-self: stretch;
+    align-self: center;
     text-align: center;
     /* margin-left: 15px;
     margin-right: 15px; */
@@ -169,7 +170,12 @@ a:hover{
     border: 1px solid transparent;
     border-bottom: 1px solid #008C5A;
     border-radius: 0;
+    padding: 0.8em;
     border-right: none;
+    background: url("../img/search-solid-black.svg") center center/50% no-repeat;
+    transition: all 250ms ease-in-out;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
 
 }
 
@@ -180,14 +186,12 @@ a:hover{
     border-bottom: 1px solid #008C5A;
     border-left: none;
     border-radius: 0;
+    width: 100%;
     background-position: 100% center;
+    transition: all 250ms ease-in-out;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
 }
-
-
-.subject-search-button:hover{
-    background: #f3f3f3 url("../img/search-solid-white.svg") center center/50% no-repeat;
-}
-
 
 .footer-grid{
     display: flex;

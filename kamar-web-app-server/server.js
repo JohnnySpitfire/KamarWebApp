@@ -126,12 +126,19 @@ app.post('/getstandards', (req, res) => {
 })
 
 app.post('/resourcesbystandard', (req, res) => {
-    console.log(req.body)
-        db.select('*').from('resources').where({'standardnumber' : req.body.standardNumber})
-        .then(data =>{
-                res.json(data)
-            })
-        .catch(err => res.status(400).json(err.message))
+    db.select('*').from('resources').where({'standardnumber' : req.body.standardNumber})
+    .then(data =>{
+            res.json(data)
+        })
+    .catch(err => res.status(400).json(err.message))
+})
+
+app.post('/resourcesbysubject', (req, res) => {
+    db.select('*').from('resources').where({'subject' : req.body.subject})
+    .then(data =>{
+            res.json(data)
+        })
+    .catch(err => res.status(400).json(err.message))
 })
 
 app.post('/postsubjects', (req, res) => {

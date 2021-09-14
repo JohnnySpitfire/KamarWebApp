@@ -1,20 +1,35 @@
 import React from 'react';
 
-const SearchBar = () => {
+class SearchBar extends React.Component {
 
-     const [inHover, setHover] = React.useState(false);
-     const toggleHover = () => {
-         setTimeout(() => {
-         setHover(!inHover)}, 100);
-    }; 
-    return(
-        <div className='search-area'
-             onMouseEnter={toggleHover}
-             onMouseLeave={toggleHover}>
-            <button type="submit" className={inHover ? 'subject-search-button' : 'subject-search-button'}></button>
-            <input type="text" className={inHover ? 'subject-search' : 'subject-search'} placeholder="Search"/>
-        </div>
-    );
+    constructor(props) {
+        super(props);
+        this.state = {
+            isSelected: false,
+            searchText: ''
+        }
+    }
+
+    InputFocusToggle = (bool) =>{
+        this.setState({isSelected: bool})
+    }
+
+    updateSearchText = (event) =>{
+        let isSearching = true;
+        if(event.target.value === ''){
+             isSearching = false;
+        }
+        this.props.getSearchText(event.target.value , isSearching)
+    }
+
+    render() {
+        return(
+            <form className='search-area'>
+                <div className={this.state.isSelected ? 'subject-search-button-active' : 'subject-search-button'}></div>
+                <input onChange={(event) => this.updateSearchText(event)} onFocus={() => this.InputFocusToggle(true)} onBlur={() => this.InputFocusToggle(false)} type="text" className={this.state.isSelected ? 'subject-search-active' : 'subject-search'} placeholder="Search"/>
+            </form>
+        );
+    }
 }
 
 export default SearchBar

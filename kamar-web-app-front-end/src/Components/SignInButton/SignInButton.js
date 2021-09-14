@@ -4,12 +4,17 @@ import { useHistory } from 'react-router';
 const SignInButton = (props) => {
 const history = useHistory()
 
-const clickHandler = () => {
-    props.onSubmitSignIn(history)
-}
+    const clickHandler = () => {
+        props.onSubmitSignIn();
+    }
+    //fuck i dunno aye
+    React.useEffect(() => {
+        props.getHistory(history);
+    }, []);
+
     return ( 
         <input onClick={clickHandler} id="submit-button" type="button" value="Log In"/>
     )
 }
 
-export default SignInButton;
+export default SignInButton;    
