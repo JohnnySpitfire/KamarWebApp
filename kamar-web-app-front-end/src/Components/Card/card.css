@@ -1,8 +1,3 @@
-.card {
-    height: 15em;
-    width: 15em;
-}
-
 .card-text{
     background-color: #008C5A;
     color:#FFFFFF;
@@ -24,9 +19,9 @@
     align-content: stretch; */
     justify-items: center;
     align-items: center;
-    margin: 0.5em;
-    margin-bottom: 0.2em;
-    height: 63% ;
+    margin: 0.3em;
+    padding-top: 0.4em;
+    height: 63%;
     width: 63%;
 }
 
@@ -39,7 +34,7 @@
     border-radius: 2em;
     box-shadow: 0.2em 0.2em 0.1em lightgray;
     transition: transform 0.1s, rotate 0.1s, box-shadow 0.1s;
-
+    width: 15em;
 }
 
 .card:hover {  

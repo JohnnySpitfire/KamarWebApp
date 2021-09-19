@@ -18,7 +18,7 @@ class StandardsSelection extends React.Component{
             searchText: '',
             isSearching: false,
             subjectResourcesList: [],
-            filteredSubjectList: []
+            filteredResourceList: [],
         }   
     }
 
@@ -29,15 +29,15 @@ class StandardsSelection extends React.Component{
     getSearchText = (searchText, isSearching) => {
         this.setState({ searchText });
         this.setState({ isSearching })
-        const currentSubjectList = this.state.subjectResourcesList;
-        const newResourceList = currentSubjectList.filter((subject) => {
+        const filteredResourceList = this.state.subjectResourcesList;
+        const newResourceList = filteredResourceList.filter((subject) => {
             const titleLower = subject.title.toLowerCase()
             return titleLower.includes(searchText.toLowerCase())
         })
         if(isSearching){
-            this.setState({filteredSubjectList: newResourceList})
+            this.setState({filteredResourceList: newResourceList})
         } else if (!isSearching){
-            this.setState({filteredSubjectList: this.state.subjectList})
+            this.setState({filteredResourceList: this.state.subjectList})
         } 
     }
 
@@ -66,11 +66,13 @@ class StandardsSelection extends React.Component{
             <React.Fragment>
                     <h1>{this.props.subjectName.charAt(0).toUpperCase() + this.props.subjectName.slice(1)}</h1>
                         <div className='standard-selection-wrapper'>
-                           <SearchBar getSearchText={this.getSearchText}/>
+                           <SearchBar searchMessage='Search Resources..' getSearchText={this.getSearchText}/>
+                           {this.state.filteredResourceList.length === 0 && this.state.isSearching?
+                            <h1>No Resources Found :(</h1>:<React.Fragment/>}
                         </div>
                     <Route exact path={`/SubjectResources/${this.props.userLevel}/${this.props.subjectName}`}>
                         {this.state.isSearching?
-                        <ResourceCardList resourcesResponse={this.state.filteredSubjectList}/>
+                        <ResourceCardList resourcesResponse={this.state.filteredResourceList}/>
                         :<div className='standard-selection-wrapper'>
                             <h2>Search By Standard</h2>
                             <StandardsList setSelectedStandard={this.setSelectedStandard} standards={this.props.standards} userLevel={this.props.userLevel} subjectName={this.props.subjectName}/>

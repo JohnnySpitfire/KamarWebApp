@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const cors = require('cors');
 const knex = require('knex');
 
-
+//start database connection
 const db = knex({
     client: 'pg',
     connection: {
@@ -15,7 +15,7 @@ const db = knex({
     }
   });
 
-  
+
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
@@ -141,6 +141,13 @@ app.post('/resourcesbysubject', (req, res) => {
     .catch(err => res.status(400).json(err.message))
 })
 
+app.post('/getsubmittedassesments', (req, res) => {
+    db.select("*").from('users_submittedassesments').where({'nsn' : req.body.nsn})
+    .then(data =>{
+        res.json(data)
+    })
+})
+
 app.post('/postsubjects', (req, res) => {
     const fieldsToInsert = req.body.map(subject => 
         ({ name: subject.name, title: subject.title, standards: subject.standards })); 
@@ -149,13 +156,20 @@ app.post('/postsubjects', (req, res) => {
         .then(res.status(200).json('success'))
         .catch(err => res.status(400).json(err))
 })
- 
-app.get('/profile/:username', (req, res) =>{
-  const { username } = req.params;
-  db.select('*').from('users').where({username}).then(user =>{
-      user.length? res.json(user[0]): res.status(404).json('no such user')
+
+app.post('/postcontactresponse', (req, res) => {
+    db('contact_responses').insert({
+        email: req.body.email, 
+        subject: req.body.subject, 
+        body: req.body.body
+    })
+    .then(res.status(200).json('success'))
+    .catch(err =>{
+        console.log(err.message);
+        res.status(400).json('an error has occoured')
     })
 })
+
 
 app.listen(3000, ()=>{
     console.log('I\'m listening! :)');

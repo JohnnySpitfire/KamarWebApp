@@ -1,8 +1,6 @@
 import React from 'react';
 import StackedBarChart from '../StackedBarChart/StackedBarChart';
 import PieChart from '../PieChart/PieChart';
-import NceaDetailsButton from '../NceaDetailsButton/NceaDetailsButton';
-
 
 class NceaOverview extends React.Component {
     constructor(props) {
@@ -112,27 +110,6 @@ class NceaOverview extends React.Component {
         this.props.updateCreditGoals(this.state.creditGoals)
     }
 
-    OnNceaDetailsClick = (history) => {
-        fetch('http://localhost:3000/nceadetails', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-              username: this.state.signInUsername,
-              password: this.state.signInPassword
-          })
-        })
-        .then(response => response.json())
-        .then(user => {
-            if (user[0].id){
-              this.setState({ validUser: true});
-              this.props.loadUser(user);
-              history.push('NCEADetails');
-            } else if (!user.id){
-                this.setState({signInMessage: 'Incorrect Username/Password Combination'});
-            }
-        }).catch(err => console.log(err))
-      }
-
     componentDidMount() {
         this.SetLastSubmittedAssessmentBackgroundColor();
     }
@@ -183,9 +160,6 @@ class NceaOverview extends React.Component {
                     <div className='lastsubass' style={{background: lastSubAssBGColour}}>
                         <h3>Last Submitted Assesment: </h3>
                         <p>{lastsubmittedassessment[0]} : {lastsubmittedassessment[1]} | {lastsubmittedassessment[2]}</p>
-                    </div>
-                    <div className='ncea-details-button-wrapper'>
-                        <NceaDetailsButton OnNceaDetailsClick={this.OnNceaDetailsClick}/>
                     </div>
                 </div>
             )

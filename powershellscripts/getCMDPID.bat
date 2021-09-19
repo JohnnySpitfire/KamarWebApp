@@ -1,4 +1,3 @@
-
 @if (@X)==(@Y) @end /* JScript comment
 @echo off
 setlocal

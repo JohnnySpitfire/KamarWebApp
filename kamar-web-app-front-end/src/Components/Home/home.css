@@ -52,44 +52,6 @@ a:hover{
 
 }
 
-.card-wrapper{
-    text-align: center;
-}
-
-.card{  
-    background-color: #F3F3F3;
-    border-radius: 2em;
-    box-shadow: 0.2em 0.2em 0.1em lightgray;
-    transition: transform 0.1s, rotate 0.1s, box-shadow 0.1s;
-
-}
-
-.card:hover {  
-    transform: scale(1.1);
-    box-shadow: 0.5em 0.5em 0.2em lightgray;
-}
-
-
-.card-image{
-    justify-items: center;
-    align-items: center;
-    margin: 1em;
-}
-
-.card-text{
-    background-color: #008C5A;
-    color:#FFFFFF;
-    border-bottom-right-radius: 2em;
-    border-bottom-left-radius: 2em;
-}
-
-.card-text h2{
-    margin-bottom: 0;
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
-    position: relative;
-}
-
 .footer-grid{
     display: flex;
     background-color: hsl(0, 0%, 9%);
@@ -185,14 +147,13 @@ a:hover{
 .graph-wrapper{grid-area: graph;}
 .lastsubass{grid-area: lastsubass;}
 .graph-controls{grid-area: controls;}
-.ncea-details-button{grid-area: nceadetailsbutt;}
 
 .ncea-overview-wrapper{
     display: grid;
     grid-template-areas: 
     'title title'
     'graph controls'
-    'lastsubass nceadetailsbutt'; 
+    'lastsubass lastsubass'; 
     background-color: #F3F3F3;
     grid-template-columns: 3fr 1fr;
     width: 100%;

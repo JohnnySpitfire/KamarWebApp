@@ -85,44 +85,6 @@ a:hover{
     border-radius: 2em;
     justify-self: stretch;
     align-self: stretch;
-
-}
-
-.card-wrapper{
-    text-align: center;
-}
-
-.card{  
-    background-color: #F3F3F3;
-    border-radius: 2em;
-    box-shadow: 0.2em 0.2em 0.1em lightgray;
-    transition: transform 0.1s, rotate 0.1s, box-shadow 0.1s;
-
-}
-
-.card:hover {  
-    transform: scale(1.1);
-    box-shadow: 0.5em 0.5em 0.2em lightgray;
-}
-
-
-.card-image{
-    justify-items: center;
-    align-items: center;
-}
-
-.card-text{
-    background-color: #008C5A;
-    color:#FFFFFF;
-    border-bottom-right-radius: 2em;
-    border-bottom-left-radius: 2em;
-}
-
-.card-text h2{
-    margin-bottom: 0;
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
-    position: relative;
 }
 
 .search-area{
@@ -130,15 +92,12 @@ a:hover{
     justify-self: stretch;
     align-self: center;
     text-align: center;
-    /* margin-left: 15px;
-    margin-right: 15px; */
     margin: 15px;
     margin-top: 25px;
 }
 
 .subject-search{
     flex-grow: 1;
-    /* position: static; */
     padding: 1em;
     border-radius: 0 2em 2em 0;
     background: #f3f3f3;
@@ -153,7 +112,6 @@ a:hover{
 
 .subject-search-button{
     padding-left: 3em;
-    /* position: static; */
     font-size: 1.05em;
     background: #f3f3f3 url("../img/search-solid-black.svg") center center/50% no-repeat;
     border-radius: 2em 0 0 2em;

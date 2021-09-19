@@ -1,3 +1,4 @@
+//no longer required - this is now stored on the database
 export const subjectList = [
     {
         name:'english',

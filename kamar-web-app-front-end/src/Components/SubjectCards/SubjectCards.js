@@ -15,6 +15,7 @@ console.log('subjectcards', props);
                 return(
                     <Link onClick={() => propsParent.setSubject(subjectList[i].name)} to={`/SubjectResources/${propsParent.userLevel}/${subjectList[i].name}`}>
                         <Card
+                            key={subjectList[i].id}
                             name={subjectList[i].name} 
                             title={subjectList[i].title} 
                         />
@@ -36,6 +37,7 @@ console.log('subjectcards', props);
             return(
                     <Link onClick={() => propsParent.setSubject(userCardList[i].name)} to={`/SubjectResources/${propsParent.userLevel}/${userCardList[i].name}`}>
                         <Card
+                            key={userCardList[i].id}
                             name={userCardList[i].name} 
                             title={userCardList[i].title} 
                         />

@@ -1,5 +1,5 @@
 import React from 'react';
-import ListItem from './ListItem';
+import HeaderItem from './HeaderItem';
 import './header.css';
 import {
     Link,
@@ -9,24 +9,27 @@ const Header = (props) => {
 
     const headerListItems = [
         {
+          id: '0',
           classnames:'',
           item:'Home',
           link: '/Home'
         },
         {
-            classNames:'',
-            item:'Subject Resources',
-            link: '/SubjectResources' 
+          id: '1',
+          classNames:'',
+          item:'Subject Resources',
+          link: '/SubjectResources' 
         },
         {
-            classNames:'',
-            item:'Contact Us',
-            link: '/Contact'  
+          id: '2',
+          classNames:'',
+          item:'Contact Us',
+          link: '/Contact'  
         },
       ]
 
     const HeaderList = headerListItems.map((props, i) => {
-        return (<ListItem key={headerListItems[i].key}
+        return (<HeaderItem key={headerListItems[i].id}
                           classNames={headerListItems[i].classNames}
                           item={headerListItems[i].item} 
                           link={headerListItems[i].link}/>)

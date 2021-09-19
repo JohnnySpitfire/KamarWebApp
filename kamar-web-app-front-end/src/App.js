@@ -67,12 +67,12 @@ class App extends Component {
                           subjects,
                           level,
                        },
-                  userNCEAProfile:{ 
+                  userNCEAProfile: { 
                           nsn: data[1].nsn,
                           credits: credits,
                           creditGoals: creditgoals,
                           lastsubmittedassessment ,
-                                  }
+                          }
   })
 }
 
@@ -106,8 +106,6 @@ signOut = () => {
   render () {
     return (
       <div className="App">
-        {/* DEV BUTTON DO NOT PRESS */}
-        {/* <button onClick={this.postSubjects}>postsubjects</button> */}
         <Router>
           <Switch>
             <Route path='/Home'>
@@ -120,7 +118,7 @@ signOut = () => {
               <SignIn loadUser={this.loadUser}/>
             </Route>
             <Route path='/Contact'>
-              <Contact signOut={this.state.signOut} isSignedIn={this.state.isSignedIn}/>
+              <Contact username={this.state.user.username} signOut={this.signOut} isSignedIn={this.state.isSignedIn}/>
             </Route>    
           </Switch>
         </Router>

@@ -83,6 +83,7 @@ class SubjectResources extends React.Component {
 
     componentDidMount (){
         this.getSubjectList()
+
     } 
     
     render() {
@@ -91,8 +92,10 @@ class SubjectResources extends React.Component {
                 <Header isSignedIn={this.props.isSignedIn} signOut={this.props.signOut}/>
                 <Route exact path="/SubjectResources">
                     <div className='main-container-resources'>
-                        <SearchBar getSearchText={this.getSearchText}/>
-                        <SubjectCards isSearching = {this.state.isSearching} searchText={this.state.searchText} subjectList={this.state.filteredSubjectList} setSubject={this.setSubject} userSubjects={this.props.userSubjects} userLevel={this.props.userLevel}/>
+                        <SearchBar searchMessage='Search Subjects..' getSearchText={this.getSearchText}/>
+                        {this.state.filteredSubjectList.length === 0?
+                        <h1>No Subjects Found :(</h1>
+                        :<SubjectCards isSearching = {this.state.isSearching} searchText={this.state.searchText} subjectList={this.state.filteredSubjectList} setSubject={this.setSubject} userSubjects={this.props.userSubjects} userLevel={this.props.userLevel}/>}
                     </div>
                 </Route>
                 <Route path={`/SubjectResources/${this.props.userLevel}/${this.state.subjectName}`}>

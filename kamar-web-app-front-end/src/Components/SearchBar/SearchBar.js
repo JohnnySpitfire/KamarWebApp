@@ -26,7 +26,7 @@ class SearchBar extends React.Component {
         return(
             <form className='search-area'>
                 <div className={this.state.isSelected ? 'subject-search-button-active' : 'subject-search-button'}></div>
-                <input onChange={(event) => this.updateSearchText(event)} onFocus={() => this.InputFocusToggle(true)} onBlur={() => this.InputFocusToggle(false)} type="text" className={this.state.isSelected ? 'subject-search-active' : 'subject-search'} placeholder="Search"/>
+                <input onChange={this.updateSearchText} onFocus={() => this.InputFocusToggle(true)} onBlur={() => this.InputFocusToggle(false)} type="text" className={this.state.isSelected ? 'subject-search-active' : 'subject-search'} placeholder={this.props.searchMessage}/>
             </form>
         );
     }
