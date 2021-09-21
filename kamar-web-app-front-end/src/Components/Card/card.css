@@ -15,8 +15,6 @@
 }
 
 .card-image{
-    /* justify-content: stretch;
-    align-content: stretch; */
     justify-items: center;
     align-items: center;
     margin: 0.3em;

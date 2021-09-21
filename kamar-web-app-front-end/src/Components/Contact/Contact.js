@@ -3,6 +3,8 @@ import Header from '../Header/Header';
 import { withRouter } from 'react-router';
 import './contact.css'
 
+//dynamic contact form which posts to the database
+
 class Contact extends React.Component{
 
     constructor(props) {
@@ -13,7 +15,7 @@ class Contact extends React.Component{
             body: '',
             formMessage: ''
         }
-
+        //creates DOM references to access input fields
         this.emailRef = React.createRef();
         this.subjectRef = React.createRef();
         this.bodyRef = React.createRef();
@@ -32,7 +34,7 @@ class Contact extends React.Component{
     }
 
     validateInputField = (label, className, event) => {
-        if (event.value === ''){
+        if(event.value === ''){
             event.className = `${className}-invalid`
             event.previousSibling.className = 'contact-label-invalid'
             event.previousSibling.textContent = `${label} *This field cannot be left blank`
@@ -53,17 +55,16 @@ class Contact extends React.Component{
     }
     
     validateEmail = (email) => {
-        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(email.toLowerCase());
+        const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return regex.test(email.toLowerCase());
     }
 
 
     submitResponse = () => {
-
         const fieldsIsValid = this.checkAllFields()
-
         const { email, subject, body } = this.state
-        if (fieldsIsValid){
+        
+        if(fieldsIsValid){
             fetch('http://localhost:3000/postcontactresponse', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -78,7 +79,7 @@ class Contact extends React.Component{
                     this.clearFields()
                     this.setState({formMessage: 'Your message was successfully sent!'})
                 } else {
-                    this.setState({formMessage: 'an error has occoured please try again'})
+                    this.setState({formMessage: 'An error has occoured please try again'})
                 }
             })
         }
@@ -115,10 +116,6 @@ class Contact extends React.Component{
         }
     }
 
-    componentWillMount(){
-        console.log('loading')
-    }
-
     render() {
         return(
         <React.Fragment>
@@ -126,6 +123,7 @@ class Contact extends React.Component{
             <div className='contact-wrapper'>
                 <h1>Contact Us</h1>
                 <div className='contact-form'>
+                    {/* if the user is not signed in display the email field */}
                     {!this.props.isSignedIn?
                     <React.Fragment>
                         <label className='contact-label' htmlFor="contact-email-input">Email</label>

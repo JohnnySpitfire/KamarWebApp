@@ -53,7 +53,7 @@ class NceaOverview extends React.Component {
         }
         return data
     }
-
+    //get the sum of credits from the credits from users_nceaoverview table
     getCreditTotals = () => {
         const totalCredits = []
         for (let i = 0; i < this.props.userNCEAProfile.credits[0].length; i++) {
@@ -79,8 +79,7 @@ class NceaOverview extends React.Component {
                 this.setState({lastSubAssBGColour: '#d9534f'})
                 break
             default:
-                this.setState({lastSubAssBGColour: 'Error'})
-                break
+                throw new console.error('invalid grade');
         }
     }
 
@@ -99,7 +98,7 @@ class NceaOverview extends React.Component {
     }
 
     postCreditGoals = () => {
-        fetch('http://localhost:3000/updateuser', {
+        fetch('http://localhost:3000/updateusercreditgoals', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -118,8 +117,7 @@ class NceaOverview extends React.Component {
         this.postCreditGoals()
     }
 
-    render(){
-        console.log('ncea overview state', this.state);
+    render() {
         const { lastsubmittedassessment } = this.props.userNCEAProfile; 
         const { activeGraph, creditGoals, lastSubAssBGColour } = this.state;
         return(
@@ -155,7 +153,6 @@ class NceaOverview extends React.Component {
                          <button  onClick={() => this.UpdateActiveGraph('creditGoals')} className='ncea-overview-button'>Credit Goals</button>
                          <button  onClick={() => this.UpdateActiveGraph('currentYearTotalCredits')} className='ncea-overview-button'>Current Year Total Credits</button>
                          <button  onClick={() => this.UpdateActiveGraph('totalCredits')} className='ncea-overview-button'>Total Credits</button>
-                         {/* <button graphTitle='Subject Credits' onClick={() => this.UpdateActiveGraph('subjectCredits')} className='ncea-overview-button'>Subject Credits</button> */}
                     </div>
                     <div className='lastsubass' style={{background: lastSubAssBGColour}}>
                         <h3>Last Submitted Assesment: </h3>

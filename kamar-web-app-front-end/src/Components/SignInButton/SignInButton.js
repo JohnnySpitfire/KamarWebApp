@@ -3,18 +3,14 @@ import { useHistory } from 'react-router';
 
 const SignInButton = (props) => {
 
-const history = useHistory()
-
-    const clickHandler = () => {
-        props.onSubmitSignIn();
-    }
+    const history = useHistory()
     //lifecycle hook for functional components
     React.useEffect(() => {
         props.getHistory(history);
     }, []); 
 
     return ( 
-        <input onClick={clickHandler} id="submit-button" type="button" value="Log In"/>
+        <input onClick={props.onSubmitSignIn} id="submit-button" type="button" value="Log In"/>
     )
 }
 

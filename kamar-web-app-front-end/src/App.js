@@ -76,32 +76,28 @@ class App extends Component {
   })
 }
 
-clearState = () => {
-  this.setState({
-      isSignedIn: false,
-      user: {
-        id: '',
-        username: '',
-        name: '',
-        email: '',
-        nsn: '',
-        subjects: [],
-        level: 0,
-      },
-      userNCEAProfile: {
-        nsn: '',
-        credits: [[0, 0, 0, 0],
-                  [0, 0, 0, 0],
-                  [0, 0, 0, 0]],
-        lastsubmittedassessment : [],
-        creditGoals: [0, 0, 0, 0]
-    }
-  })
-}
-
-signOut = () => {
-    this.clearState();
-}
+  clearState = () => {
+    this.setState({
+        isSignedIn: false,
+        user: {
+          id: '',
+          username: '',
+          name: '',
+          email: '',
+          nsn: '',
+          subjects: [],
+          level: 0,
+        },
+        userNCEAProfile: {
+          nsn: '',
+          credits: [[0, 0, 0, 0],
+                    [0, 0, 0, 0],
+                    [0, 0, 0, 0]],
+          lastsubmittedassessment : [],
+          creditGoals: [0, 0, 0, 0]
+      }
+    })
+  }
 
   render () {
     return (
@@ -109,16 +105,16 @@ signOut = () => {
         <Router>
           <Switch>
             <Route path='/Home'>
-            <Home signOut={this.signOut} fullName = {this.state.user.name} updateCreditGoals={this.updateCreditGoals} userNCEAProfile={this.state.userNCEAProfile} isSignedIn={this.state.isSignedIn}/>
+            <Home signOut={this.clearState} fullName = {this.state.user.name} updateCreditGoals={this.updateCreditGoals} userNCEAProfile={this.state.userNCEAProfile} isSignedIn={this.state.isSignedIn}/>
             </Route>
             <Route path='/SubjectResources'>
-              <SubjectResources signOut={this.signOut} userSubjects={this.state.user.subjects} userLevel={this.state.user.level} isSignedIn={this.state.isSignedIn}/>
+              <SubjectResources signOut={this.clearState} userSubjects={this.state.user.subjects} userLevel={this.state.user.level} isSignedIn={this.state.isSignedIn}/>
             </Route>
             <Route path='/SignIn'>
               <SignIn loadUser={this.loadUser}/>
             </Route>
             <Route path='/Contact'>
-              <Contact username={this.state.user.username} signOut={this.signOut} isSignedIn={this.state.isSignedIn}/>
+              <Contact username={this.state.user.username} signOut={this.clearState} isSignedIn={this.state.isSignedIn}/>
             </Route>    
           </Switch>
         </Router>

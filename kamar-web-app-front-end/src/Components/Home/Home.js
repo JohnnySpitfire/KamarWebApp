@@ -43,11 +43,6 @@ return(
                     <div className="sidebar-right zone">
                         <div className="sidebar-content">
                         <h3>Popular Pages</h3>
-                            {/* <li><a href="">Page 1</a></li>
-                            <li><a href="">Page 2</a></li>
-                            <li><a href="">Page 3</a></li>
-                            <li><a href="">Page 4</a></li>
-                            <li><a href="">Page 5</a></li> */}
                     </div>
                 </div>
                     <div className="body zone">

@@ -4,12 +4,10 @@ import {
     Link,
   } from "react-router-dom";
 
-const SubjectCards = (props) => {
-    
-console.log('subjectcards', props);
-
+const SubjectCardsList = (props) => {
+    //default subject card list based on subjects present on the database
     const CardList = (propsParent) => {
-        const {subjectList} = propsParent;
+        const { subjectList } = propsParent;
         return (
             subjectList.map((props, i) => {
                 return(
@@ -24,16 +22,14 @@ console.log('subjectcards', props);
             })
         )
     }
+    //returns a subject card list with the names which are present on the users subject array present on their users table entry 
     const UserCardList = (propsParent) => {
-        console.log('propsParent', props)   
         const { subjectList } = propsParent;
-
         const userCardList = subjectList.filter((subject)=>{
             return propsParent.userSubjects.includes(subject.name)
         })
         return (
             userCardList.map((props, i) => {
-                console.log(userCardList)
             return(
                     <Link onClick={() => propsParent.setSubject(userCardList[i].name)} to={`/SubjectResources/${propsParent.userLevel}/${userCardList[i].name}`}>
                         <Card
@@ -52,7 +48,8 @@ console.log('subjectcards', props);
                 <div className='card-resources'>    
                     <CardList subjectList={props.subjectList} setSubject={props.setSubject} userLevel={props.userLevel}/>
                 </div>:
-                <div className='card-wrapper-resources'>    
+                <div className='card-wrapper-resources'>
+                {/* if the userlevel === 0 then only display the default subject cards as the user has not signed in*/}
                 {props.userLevel !== 0?
                     <div className='card-resources'>
                         <UserCardList subjectList={props.subjectList} setSubject={props.setSubject} userLevel={props.userLevel} userSubjects={props.userSubjects}/>
@@ -65,4 +62,4 @@ console.log('subjectcards', props);
             </React.Fragment>
         );  
 }
-export default SubjectCards;    
+export default SubjectCardsList;    

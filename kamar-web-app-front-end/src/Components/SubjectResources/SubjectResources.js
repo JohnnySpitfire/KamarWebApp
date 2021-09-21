@@ -1,5 +1,5 @@
 import React from 'react';
-import SubjectCards from '../SubjectCards/SubjectCards';
+import SubjectCardsList from '../SubjectCardsList/SubjectCardsList';
 import './subject-resources.css'
 import SearchBar from '../SearchBar/SearchBar'
 import Header from '../Header/Header';
@@ -31,7 +31,7 @@ class SubjectResources extends React.Component {
     }
     
     getSubjectList = () =>{
-        fetch('http://localhost:3000/subjectlist', {
+        fetch('http://localhost:3000/getsubjectlist', {
             method: 'GET',
             headers: {'Content-Type': 'application/json'}
         })
@@ -42,6 +42,7 @@ class SubjectResources extends React.Component {
     }
 
     getStandards = (subjectName) =>{
+        //converts the users ncea level to the array position
         const arrayPos = -this.props.userLevel + 3
         fetch('http://localhost:3000/getstandards', {
             method: 'POST',
@@ -53,14 +54,15 @@ class SubjectResources extends React.Component {
         .then(response => response.json())
         .then(subjectStandards => {
            const standardsArray = [subjectStandards.level3, subjectStandards.level2, subjectStandards.level1]
-           console.log('arraystandards', standardsArray)
+           //if the users level is 0 (not signed in) then display all the standards
             if(this.props.userLevel === 0){
              this.setState({ subjectStandards: standardsArray})
          } else { 
              this.setState({ subjectStandards: [standardsArray[arrayPos]]})
          }
 
-        }).catch(err => console.log(err))   
+        }).catch(err => console.log(err))
+        // catches any undefined states and returns subject standard to an empty array
         if (this.state.subjectStandards === undefined){
             this.setState({subjectStandards: []})
         }
@@ -70,6 +72,7 @@ class SubjectResources extends React.Component {
         this.setState({ searchText });
         this.setState({ isSearching })
         const currentSubjectList = this.state.subjectList;
+        //filters subject list by the search query from the search bar - ignores case
         const newSubjectList = currentSubjectList.filter((subject) => {
             const subjectTitleLower = subject.title.toLowerCase()
             return subjectTitleLower.includes(searchText.toLowerCase());
@@ -95,7 +98,7 @@ class SubjectResources extends React.Component {
                         <SearchBar searchMessage='Search Subjects..' getSearchText={this.getSearchText}/>
                         {this.state.filteredSubjectList.length === 0?
                         <h1>No Subjects Found :(</h1>
-                        :<SubjectCards isSearching = {this.state.isSearching} searchText={this.state.searchText} subjectList={this.state.filteredSubjectList} setSubject={this.setSubject} userSubjects={this.props.userSubjects} userLevel={this.props.userLevel}/>}
+                        :<SubjectCardsList isSearching = {this.state.isSearching} searchText={this.state.searchText} subjectList={this.state.filteredSubjectList} setSubject={this.setSubject} userSubjects={this.props.userSubjects} userLevel={this.props.userLevel}/>}
                     </div>
                 </Route>
                 <Route path={`/SubjectResources/${this.props.userLevel}/${this.state.subjectName}`}>

@@ -29,20 +29,21 @@ class StandardsSelection extends React.Component{
     getSearchText = (searchText, isSearching) => {
         this.setState({ searchText });
         this.setState({ isSearching })
-        const filteredResourceList = this.state.subjectResourcesList;
-        const newResourceList = filteredResourceList.filter((subject) => {
+        // returns filtered resource list based on search query
+        const resourceList = this.state.subjectResourcesList;
+        const newResourceList = resourceList.filter((subject) => {
             const titleLower = subject.title.toLowerCase()
             return titleLower.includes(searchText.toLowerCase())
         })
         if(isSearching){
             this.setState({filteredResourceList: newResourceList})
-        } else if (!isSearching){
-            this.setState({filteredResourceList: this.state.subjectList})
+        } else {
+            this.setState({filteredResourceList: this.state.subjectResourcesList})
         } 
     }
 
     getResourcesBySubject = () => {
-        fetch('http://localhost:3000/resourcesbysubject', {
+        fetch('http://localhost:3000/getresourcesbysubject', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -60,17 +61,17 @@ class StandardsSelection extends React.Component{
     }
 
 
-    render(){
+    render() {
         console.log(this.state)
         return(
             <React.Fragment>
                     <h1>{this.props.subjectName.charAt(0).toUpperCase() + this.props.subjectName.slice(1)}</h1>
-                        <div className='standard-selection-wrapper'>
+                    <Route exact path={`/SubjectResources/${this.props.userLevel}/${this.props.subjectName}`}>
+                    <div className='standard-selection-wrapper'>
                            <SearchBar searchMessage='Search Resources..' getSearchText={this.getSearchText}/>
                            {this.state.filteredResourceList.length === 0 && this.state.isSearching?
                             <h1>No Resources Found :(</h1>:<React.Fragment/>}
                         </div>
-                    <Route exact path={`/SubjectResources/${this.props.userLevel}/${this.props.subjectName}`}>
                         {this.state.isSearching?
                         <ResourceCardList resourcesResponse={this.state.filteredResourceList}/>
                         :<div className='standard-selection-wrapper'>

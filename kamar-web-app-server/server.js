@@ -27,6 +27,8 @@ app.get('/', (req, res)=>{
     })
 });
 
+//updates values in the users_nceaoverview table using the scraped data from users_submittedassesments - 
+//the data in users_nceaoverview is what get displayed to the user
 const UpdateNCEAOverview = (nsn) => {
     db.select('*').from('users_submittedassesments').where('nsn', '=', nsn)
     .then(user => {
@@ -41,7 +43,7 @@ const UpdateNCEAOverview = (nsn) => {
                        [0, 0, 0, 0],
                        [0, 0, 0, 0]]
 
-
+        //gets sum of grades for each level by submitted assesments
         const getCredits = (assesmentArray, credits) =>{
             assesmentArray.forEach((assesment) => {
                 switch(assesment.value){
@@ -67,8 +69,9 @@ const UpdateNCEAOverview = (nsn) => {
         getCredits(level2Assesments, credits[1])
         getCredits(level1Assesments, credits[2])
 
-        console.log('credits', credits)
+        console.log(`updated: ${nsn} with:`, credits )
 
+        //updates users_nceaoverview with new values
         db('users_nceaoverview').where('nsn', '=', nsn).update({
            credits: credits,
            lastsubmittedassessment: [level3Assesments[0].title, level3Assesments[0].number, level3Assesments[0].value]
@@ -77,15 +80,16 @@ const UpdateNCEAOverview = (nsn) => {
     })
 }
 
-app.post('/updateuser', (req, res) => {
+app.post('/updateusercreditgoals', (req, res) => {
     db('users_nceaoverview').where('nsn', '=', req.body.nsn).update({
         creditgoals: req.body.creditGoals
-     }).catch(err => res.status(500).json(err))
+     }).catch(err => res.status(418).json(err))
      .then(res.status(200).json('success'))
      .catch(err => res.status(500).json(err))
  })
 
-
+//gets data from sign in form and compares hash from login table
+//returns data from users table and users_nceaoverview where username = login username, and nsn = nsn from users
 app.post('/signin', (req, res) => {
       db.select('username', 'hash').from('login').where('username','=', req.body.username)
       .then(data =>{
@@ -107,14 +111,14 @@ app.post('/signin', (req, res) => {
         } 
          res.status(400).json('wrong credentials')
       })
-      .catch(err => res.status(400).json(err.message))
+      .catch(err => res.status(418).json(err.message))
 })
 
-app.get('/subjectlist', (req, res) => {
+app.get('/getsubjectlist', (req, res) => {
     db.select('*').from('subjects')
     .then(data => {
         res.json(data)
-    }).catch(err => res.status(400).json(err))
+    }).catch(err => res.status(500).json(err))
 })
 
 app.post('/getstandards', (req, res) => {
@@ -125,7 +129,7 @@ app.post('/getstandards', (req, res) => {
     }).catch(err => res.status(400).json(err))
 })
 
-app.post('/resourcesbystandard', (req, res) => {
+app.post('/getresourcesbystandard', (req, res) => {
     db.select('*').from('resources').where({'standardnumber' : req.body.standardNumber})
     .then(data =>{
             res.json(data)
@@ -133,7 +137,7 @@ app.post('/resourcesbystandard', (req, res) => {
     .catch(err => res.status(400).json(err.message))
 })
 
-app.post('/resourcesbysubject', (req, res) => {
+app.post('/getresourcesbysubject', (req, res) => {
     db.select('*').from('resources').where({'subject' : req.body.subject})
     .then(data =>{
             res.json(data)
@@ -148,6 +152,7 @@ app.post('/getsubmittedassesments', (req, res) => {
     })
 })
 
+//dev tool posting JS array to database
 app.post('/postsubjects', (req, res) => {
     const fieldsToInsert = req.body.map(subject => 
         ({ name: subject.name, title: subject.title, standards: subject.standards })); 
@@ -170,11 +175,10 @@ app.post('/postcontactresponse', (req, res) => {
     })
 })
 
-
 app.listen(3000, ()=>{
     console.log('I\'m listening! :)');
     //update useroverview for all users -- not usable for production
-    db.select('nsn').from('users').then(res=>{
+    db.select('nsn').from('users').then(res=> {
         res.forEach(user =>{
             UpdateNCEAOverview(user.nsn);
         })

@@ -13,7 +13,7 @@ class StandardResoucesResults extends React.Component {
     }
 
     getResourcesByStandard = () => {
-        fetch('http://localhost:3000/resourcesbystandard', {
+        fetch('http://localhost:3000/getresourcesbystandard', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({

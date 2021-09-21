@@ -10,11 +10,11 @@ class SearchBar extends React.Component {
         }
     }
 
-    InputFocusToggle = (bool) =>{
+    inputFocusToggle = (bool) =>{
         this.setState({isSelected: bool})
     }
 
-    updateSearchText = (event) =>{
+    updateSearchText = (event) => {
         let isSearching = true;
         if(event.target.value === ''){
              isSearching = false;
@@ -26,7 +26,7 @@ class SearchBar extends React.Component {
         return(
             <form className='search-area'>
                 <div className={this.state.isSelected ? 'subject-search-button-active' : 'subject-search-button'}></div>
-                <input onChange={this.updateSearchText} onFocus={() => this.InputFocusToggle(true)} onBlur={() => this.InputFocusToggle(false)} type="text" className={this.state.isSelected ? 'subject-search-active' : 'subject-search'} placeholder={this.props.searchMessage}/>
+                <input onChange={this.updateSearchText} onFocus={() => this.inputFocusToggle(true)} onBlur={() => this.inputFocusToggle(false)} type="text" className={this.state.isSelected ? 'subject-search-active' : 'subject-search'} placeholder={this.props.searchMessage}/>
             </form>
         );
     }

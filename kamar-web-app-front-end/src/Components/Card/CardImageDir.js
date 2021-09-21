@@ -16,6 +16,8 @@ import {ReactComponent as DigitalTechnologiesCardImage} from '../img/card/digita
 import {ReactComponent as DesignVisualCommunicationCardImage} from '../img/card/design-visual-communication.svg';
 import {ReactComponent as HardMaterialsCardImage} from '../img/card/hard-materials.svg';
 
+//SVG Import libary for the card component
+
 const ImageDir = [[
    EnglishCardImage,
    ArtHistoryCardImage,

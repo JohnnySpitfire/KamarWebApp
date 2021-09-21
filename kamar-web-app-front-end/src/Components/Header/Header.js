@@ -30,9 +30,9 @@ const Header = (props) => {
 
     const HeaderList = headerListItems.map((props, i) => {
         return (<HeaderItem key={headerListItems[i].id}
-                          classNames={headerListItems[i].classNames}
-                          item={headerListItems[i].item} 
-                          link={headerListItems[i].link}/>)
+                            classNames={headerListItems[i].classNames}
+                            item={headerListItems[i].item} 
+                            link={headerListItems[i].link}/>)
     });
     return(
         <div className="nav-container">
